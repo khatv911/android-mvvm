@@ -18,6 +18,7 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
 
 
     fun refresh() {
+        setRefreshing()
         repository.refresh()
     }
 
@@ -27,6 +28,7 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
     }
 
     fun retry() {
+        setLoading()
         repository.retry?.invoke()
     }
 

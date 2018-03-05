@@ -17,6 +17,21 @@ android {
         versionCode buildConfig.version.code
         versionName buildConfig.version.name
 
+        // room schema
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
+
+
+        // used by Room, to test migrations
+        sourceSets {
+            androidTest.assets.srcDirs +=
+                    files("$projectDir/schemas".toString())
+        }
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }

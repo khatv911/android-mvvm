@@ -45,7 +45,7 @@ class CoinAdapter : ListAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_CALLBACK)
             }
 
             override fun areItemsTheSame(oldItem: Coin?, newItem: Coin?): Boolean {
-                return oldItem?.id == newItem?.id
+                return oldItem?.shortName == newItem?.shortName
             }
 
             override fun areContentsTheSame(oldItem: Coin?, newItem: Coin?): Boolean {

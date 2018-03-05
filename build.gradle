@@ -62,7 +62,8 @@ buildscript {
                     'arch'   : [
                             'room'     : [
                                     'runtime' : "android.arch.persistence.room:runtime:${versions.arch.room}",
-                                    'compiler': "android.arch.persistence.room:compiler:${versions.arch.room}"
+                                    'compiler': "android.arch.persistence.room:compiler:${versions.arch.room}",
+                                    'testing' : "android.arch.persistence.room:testing:${versions.arch.room}"
                             ],
                             'lifecycle': [
                                     'extensions': "android.arch.lifecycle:extensions:${versions.arch.extensions}",

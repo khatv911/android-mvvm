@@ -38,7 +38,7 @@ interface UiResolver {
     /**
      * handle un-auth cases ( token expired, login failed)
      */
-    fun resolveUnAuthenticated()
+    fun resolveUnAuthorized()
 
     /**
      * handle forbidden cases

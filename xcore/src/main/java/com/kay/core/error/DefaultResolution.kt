@@ -53,13 +53,20 @@ class DefaultResolution constructor(private val resolvers: MutableList<UiResolve
     }
 
     override fun onNotFound() {
-
+        resolvers.map {
+            it.resolveNotFound()
+        }
     }
 
     override fun onUnAuthorized() {
-
+        resolvers.map {
+            it.resolveUnAuthorized()
+        }
     }
 
     override fun onForbidden() {
+        resolvers.map {
+            it.resolveForbidden()
+        }
     }
 }

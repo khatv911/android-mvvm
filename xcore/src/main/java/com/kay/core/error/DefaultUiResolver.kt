@@ -51,8 +51,7 @@ class DefaultUiResolver constructor(private val fragment: Fragment) : UiResolver
     // NO-OP
     override fun resolveNotFound(retryOption: Pair<Boolean, Int?>) {}
 
-    //NO-OP
-    override fun resolveUnAuthenticated() {}
+    override fun resolveUnAuthorized(){}
 
     //NO-OP
     override fun resolveForbidden() {}

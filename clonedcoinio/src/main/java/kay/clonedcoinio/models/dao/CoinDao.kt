@@ -10,13 +10,21 @@ import kay.clonedcoinio.models.entities.Coin
  * Email: khatv911@gmail.com
  */
 @Dao
-interface CoinDao {
+abstract class CoinDao {
 
     @Query("select * from tbl_coin")
-    fun getAllCoins(): LiveData<List<Coin>?>
+    abstract fun getAllCoins(): LiveData<List<Coin>?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(lst: List<Coin>)
+    abstract fun insert(lst: List<Coin>)
 
+    @Query("delete from tbl_coin")
+    abstract fun deleteAllCoins()
+
+    @Transaction
+    open fun refresh(coins: List<Coin>) {
+        deleteAllCoins()
+        insert(coins)
+    }
 
 }

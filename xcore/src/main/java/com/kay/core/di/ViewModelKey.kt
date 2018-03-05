@@ -12,7 +12,7 @@ import kotlin.reflect.KClass
  * Email: khatv911@gmail.com
  */
 @kotlin.annotation.MustBeDocumented
-@Target(ElementType.METHOD)
+@kotlin.annotation.Target(AnnotationTarget.FUNCTION)
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 @MapKey
 annotation class ViewModelKey(val value: KClass<out ViewModel>)

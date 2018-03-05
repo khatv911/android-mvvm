@@ -10,7 +10,7 @@ import kay.clonedcoinio.models.entities.Coin
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-@Database(entities = [Coin::class], exportSchema = false, version = 1)
+@Database(entities = [Coin::class], exportSchema = true, version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun coinDao(): CoinDao
 }
