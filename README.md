@@ -7,3 +7,8 @@ Android App Template built upon
 4. Retrofit
 5. Moshi
 6. And more...
+
+=====================
+# TODO:
+1. TDD
+2. Background service and Job Scheduler
