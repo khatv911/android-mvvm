@@ -18,11 +18,17 @@ package com.kay.core.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.kay.core.di.PerActivity
 
 import javax.inject.Inject
 import javax.inject.Provider
-import javax.inject.Singleton
+
+
+/**
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
+ */
+
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory

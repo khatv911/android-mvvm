@@ -10,7 +10,9 @@ import com.kay.core.utils.LoadingState
 import timber.log.Timber
 
 /**
- * Created by KhaTran on 31/1/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 abstract class AbsBaseViewModel<T> : ViewModel() {
 
@@ -45,7 +47,7 @@ abstract class AbsBaseViewModel<T> : ViewModel() {
     }
 
 
-    fun extractStatusFromResource(state: RequestState) {
+    fun extractState(state: RequestState) {
 
         when (state) {
             RequestState.FETCHING -> {

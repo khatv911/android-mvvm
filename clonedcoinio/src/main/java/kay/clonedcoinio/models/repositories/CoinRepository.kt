@@ -14,7 +14,9 @@ import ru.gildor.coroutines.retrofit.getOrThrow
 import javax.inject.Inject
 
 /**
- * Created by none on 10/2/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : BaseRepository() {
     private val webService = api.create(Apis::class.java)

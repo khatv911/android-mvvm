@@ -9,19 +9,21 @@ import timber.log.Timber
 import kotlin.coroutines.experimental.CoroutineContext
 
 /**
- * Created by none on 4/2/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 abstract class BaseRepository {
 
-    val primaryCoroutineExceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, e ->
-        e.printStackTrace()
-        state.value = RequestState.ERROR(e)
-
-    }
-    val secondaryCoroutineExceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
-        throwable.printStackTrace()
-        throw throwable
-    }
+//    val primaryCoroutineExceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, e ->
+//        e.printStackTrace()
+//        state.value = RequestState.ERROR(e)
+//
+//    }
+//    val secondaryCoroutineExceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
+//        throwable.printStackTrace()
+//        throw throwable
+//    }
 
     val state = SingleLiveEvent<RequestState>()
 

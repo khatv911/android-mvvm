@@ -10,7 +10,9 @@ import timber.log.Timber
 import javax.inject.Singleton
 
 /**
- * Created by none on 10/2/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 class App : dagger.android.support.DaggerApplication() {
 

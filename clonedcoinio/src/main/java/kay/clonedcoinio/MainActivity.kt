@@ -7,6 +7,11 @@ import com.kay.core.error.UiResolver
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
+/**
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
+ */
 class MainActivity : AppCompatActivity() {
 
 

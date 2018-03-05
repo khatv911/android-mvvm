@@ -18,7 +18,9 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 /**
- * Created by KhaTran on 1/2/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 @Module
 class CoreModule {

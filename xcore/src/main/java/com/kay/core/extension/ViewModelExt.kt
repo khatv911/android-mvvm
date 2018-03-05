@@ -7,7 +7,9 @@ import android.support.v4.app.FragmentActivity
 import com.kay.core.viewmodel.ViewModelFactory
 
 /**
- * Created by KhaTran on 2/2/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 
 

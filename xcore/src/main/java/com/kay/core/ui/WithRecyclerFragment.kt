@@ -10,7 +10,9 @@ import com.kay.core.viewmodel.AbsBaseViewModel
 import timber.log.Timber
 
 /**
- * Created by KhaTran on 1/2/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 abstract class WithRecyclerFragment<T, VM : AbsBaseViewModel<T>> : AbsVMBaseFragment<T, VM>() {
 

@@ -19,7 +19,9 @@ import com.kay.core.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
 /**
- * Created by KhaTran on 31/1/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 abstract class AbsVMBaseFragment<T, VM : AbsBaseViewModel<T>> : AbsBaseFragment(), LifecycleOwnerExt<T>, HasViewModel<T, VM> {
 

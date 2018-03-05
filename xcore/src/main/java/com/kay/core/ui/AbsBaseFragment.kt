@@ -6,11 +6,9 @@ import dagger.android.support.DaggerFragment
 
 
 /**
- * Created by KhaTran on 30/1/18.
- *
- *
- *
- * Very basic fragment tasks
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 
 abstract class AbsBaseFragment : DaggerFragment() {

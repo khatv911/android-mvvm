@@ -8,10 +8,10 @@ buildscript {
             'targetSdk' : 27,
 
             'version'   : [
-                    'major': 1,
-                    'minor': 2,
-                    'patch': 0,
-                    'build': 0,
+                    'major': 0,
+                    'minor': 0,
+                    'patch': 1,
+                    'build': 5,
             ],
     ]
     ext.buildConfig.version['name'] = "${buildConfig.version.major}.${buildConfig.version.minor}.${buildConfig.version.patch}"
@@ -82,7 +82,7 @@ buildscript {
                             'fragment'        : "com.android.support:support-fragment:${versions.supportLibrary}"
                     ],
                     'x'      : [
-                            'coreKtx': 'androidx.core:core-ktx:0.1',
+                            'coreKtx': 'androidx.core:core-ktx:0.2',
                     ],
                     'test'   : [
                             'runner': "com.android.support.test:runner:${versions.atsl}",

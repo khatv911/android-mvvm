@@ -6,7 +6,9 @@ import com.kay.core.R
 import com.kay.core.utils.Retriable
 
 /**
- * Created by none on 25/2/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 class DefaultUiResolver constructor(private val fragment: Fragment) : UiResolver {
     override fun resolveErrorMessage(message: String, retryOption: Pair<Boolean, Int?>) {

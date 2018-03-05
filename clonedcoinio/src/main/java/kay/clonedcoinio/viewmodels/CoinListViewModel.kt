@@ -8,7 +8,9 @@ import kay.clonedcoinio.models.repositories.CoinRepository
 import javax.inject.Inject
 
 /**
- * Created by none on 10/2/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 class CoinListViewModel @Inject constructor(private val repository: CoinRepository) : AbsBaseViewModel<List<Coin>>() {
 
@@ -31,7 +33,7 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
     init {
         mLiveData = trigger.smap { repository.getAllCoins() }
         mStateEvent.addSource(repository.state, {
-            it?.let { extractStatusFromResource(it) }
+            it?.let { extractState(it) }
         })
     }
 

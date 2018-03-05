@@ -11,7 +11,9 @@ import kay.clonedcoinio.viewmodels.CoinListViewModel
 import kay.clonedcoinio.views.CoinListFragment
 
 /**
- * Created by none on 25/2/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 @Module
 abstract class CoinModule : BaseVMModule() {

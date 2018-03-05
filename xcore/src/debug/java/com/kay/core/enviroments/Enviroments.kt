@@ -1,16 +1,17 @@
 package com.kay.core.enviroments
 
+import android.os.StrictMode
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import timber.log.Timber
-import android.os.StrictMode
-
 
 
 /**
- * Created by none on 10/2/18.
+ * Created by Kay Tran on 2/2/18.
+ * Profile: https://github.com/khatv911
+ * Email: khatv911@gmail.com
  */
 
 fun OkHttpClient.Builder.inject(): okhttp3.OkHttpClient.Builder {
@@ -23,7 +24,6 @@ fun OkHttpClient.Builder.inject(): okhttp3.OkHttpClient.Builder {
 }
 
 fun android.app.Application.injectEnvSettings() {
-
 
 
     Stetho.initialize(
