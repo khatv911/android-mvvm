@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item
+        type="id"
+        name="base_content" />
+
+    <item
+        type="id"
+        name="base_recycler_view" />
+
+
+    <item
+        type="id"
+        name="base_refresh_layout" />
+</resources>

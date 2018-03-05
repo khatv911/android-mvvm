@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">core</string>
+    <string name="retry">Retry</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="message_error_service_unavailable">Service not available</string>
+    <string name="message_error_internal_server_error">Service not available</string>
+    <string name="message_error_client_error">Service not available</string>
+</resources>
