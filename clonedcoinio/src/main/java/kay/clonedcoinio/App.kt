@@ -6,6 +6,7 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import dagger.android.support.DaggerApplication
 import kay.clonedcoinio.injections.AppModule
+import kay.clonedcoinio.injections.ServiceModule
 import timber.log.Timber
 import javax.inject.Singleton
 
@@ -18,7 +19,7 @@ class App : dagger.android.support.DaggerApplication() {
 
     @Singleton
     @dagger.Component(modules = [AndroidSupportInjectionModule::class,
-        AppModule::class, FeaturesModule::class
+        AppModule::class, FeaturesModule::class, ServiceModule::class
     ]
     )
     interface Component : AndroidInjector<App> {

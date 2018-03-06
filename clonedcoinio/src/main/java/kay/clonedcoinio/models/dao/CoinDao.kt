@@ -12,7 +12,7 @@ import kay.clonedcoinio.models.entities.Coin
 @Dao
 abstract class CoinDao {
 
-    @Query("select * from tbl_coin")
+    @Query("select * from tbl_coin limit 20 ")
     abstract fun getAllCoins(): LiveData<List<Coin>?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -20,6 +20,9 @@ abstract class CoinDao {
 
     @Query("delete from tbl_coin")
     abstract fun deleteAllCoins()
+
+    @Query("update tbl_coin set price= :price where shortName= :name")
+    abstract fun update(name: String, price: Double)
 
     @Transaction
     open fun refresh(coins: List<Coin>) {
