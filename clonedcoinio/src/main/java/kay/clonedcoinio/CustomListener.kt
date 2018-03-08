@@ -15,12 +15,12 @@ import javax.inject.Inject
  */
 class CustomListener constructor(appDatabase: AppDatabase) : Emitter.Listener {
 
-    private val dao = appDatabase.coinDao()
+//    private val dao = appDatabase.coinDao()
     private val moshi: Moshi = Moshi.Builder().build()
     private val adapter = moshi.adapter(CoinMessage::class.java)
     override fun call(vararg args: Any?) {
         val message = adapter.fromJson(args[0].toString())
-        dao.update(message.shortName!!, message.coin?.price ?: 0.0)
+//        dao.update(message.shortName!!, message.coin?.price ?: 0.0)
     }
 
 

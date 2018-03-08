@@ -6,6 +6,13 @@ import android.support.v7.app.AppCompatActivity
 import com.kay.core.error.Resolution
 import com.kay.core.error.UiResolver
 import dagger.android.support.DaggerAppCompatActivity
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import io.socket.client.IO
+import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -15,14 +22,20 @@ import javax.inject.Inject
  */
 class MainActivity : AppCompatActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        SocketIoService.connect(this)
+//        startSocket()
+
     }
 
-    override fun onDestroy() {
+    override fun onDestroy()
+    {
+        Timber.d("destroy act")
         super.onDestroy()
-        SocketIoService.disconnect(this)
     }
+
+
 }

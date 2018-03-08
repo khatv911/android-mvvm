@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ClonedCoinIO</string>
+    <string name="dollar_sign_format">\$%.4f</string>
 </resources>

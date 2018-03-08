@@ -1,7 +1,13 @@
 package kay.clonedcoinio.models.repositories
 
+import android.arch.lifecycle.MediatorLiveData
 import com.kay.core.livedata.BaseRepository
 import com.kay.core.network.RequestState
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import io.socket.client.IO
+import kay.clonedcoinio.createStream
 import kay.clonedcoinio.models.Apis
 import kay.clonedcoinio.models.AppDatabase
 import kotlinx.coroutines.experimental.CommonPool
@@ -11,6 +17,8 @@ import kotlinx.coroutines.experimental.launch
 import retrofit2.Retrofit
 import ru.gildor.coroutines.retrofit.awaitResult
 import ru.gildor.coroutines.retrofit.getOrThrow
+import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -19,8 +27,11 @@ import javax.inject.Inject
  * Email: khatv911@gmail.com
  */
 class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : BaseRepository() {
+
+
     private val webService = api.create(Apis::class.java)
     private val coinDao = appDB.coinDao()
+
 
     /**
      * Get all coin from db
@@ -31,6 +42,40 @@ class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : Ba
             { coins -> coinDao.insert(coins) },
             { coins -> coins?.isEmpty() ?: true }
     )
+
+    private val disposable = CompositeDisposable()
+    private val socket = IO.socket("https://coincap.io")
+
+
+    /**
+     * Start the socket and handle stream event
+     */
+    fun startSocket() {
+        disposable.add(socket.createStream()
+                .buffer(3, TimeUnit.SECONDS, 10)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(Schedulers.computation())
+                .subscribe {
+                    //                    Timber.d("from stream ${it.size}")
+//                    it.map { Timber.d("${it.shortName} ,") }
+                    it.sortBy { it.shortName }
+                    it.reverse()
+                    val distinct = it.distinctBy { it.shortName }
+//                    Timber.d("distinct ${distinct.size}")
+//                    distinct.map { Timber.d("${it.shortName} ,") }
+                    coinDao.update(distinct)
+                }
+        )
+
+        socket.connect()
+    }
+
+    fun closeSocket() {
+        Timber.d("close socket")
+        socket.disconnect()
+        socket.off()
+        disposable.dispose()
+    }
 
 
     /**

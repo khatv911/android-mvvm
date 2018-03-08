@@ -37,6 +37,12 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
         mStateEvent.addSource(repository.state, {
             it?.let { extractState(it) }
         })
+        repository.startSocket()
+
     }
 
+    override fun onCleared() {
+        repository.closeSocket()
+        super.onCleared()
+    }
 }

@@ -2,6 +2,7 @@ package kay.clonedcoinio.views
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -50,8 +51,9 @@ class CoinListFragment : WithRecyclerFragment<List<Coin>, CoinListViewModel>(), 
     override fun setupRecyclerView() {
         mRecyclerView.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
+            layoutManager = LinearLayoutManager(context)
+            itemAnimator = DefaultItemAnimator()
             addItemDecoration(object : DividerItemDecoration(context, LinearLayoutManager.VERTICAL) {
                 override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                     val position = parent.getChildAdapterPosition(view)

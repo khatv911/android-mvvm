@@ -16,7 +16,7 @@ import kay.clonedcoinio.views.CoinListFragment
  * Email: khatv911@gmail.com
  */
 @Module
-abstract class CoinModule : BaseVMModule() {
+abstract class CoinModule {
 
     @Binds
     @IntoMap

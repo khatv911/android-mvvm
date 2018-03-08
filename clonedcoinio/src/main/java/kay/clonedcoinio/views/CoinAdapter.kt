@@ -49,7 +49,7 @@ class CoinAdapter : ListAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_CALLBACK)
         fun bindTo(coin: Coin) = with(itemView) {
             tv_item_coin_long_name.text = coin.longName ?: "N/A"
             tv_item_coin_short_name.text = coin.shortName ?: "N/A"
-            tv_item_coin_price.text = "\$%f".format(coin.price)
+            tv_item_coin_price.text = context.resources.getString(R.string.dollar_sign_format, coin.price)
         }
 
         fun priceUp(coin: Coin) = with(itemView) {
@@ -92,7 +92,7 @@ class CoinAdapter : ListAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_CALLBACK)
 
             override fun getChangePayload(oldItem: Coin?, newItem: Coin?): Any? {
                 return when {
-                    oldItem == newItem -> null
+                    oldItem == newItem -> super.getChangePayload(oldItem, newItem)
                     oldItem!!.price < newItem!!.price -> PRICE_UP
                     else -> PRICE_DOWN
                 }
