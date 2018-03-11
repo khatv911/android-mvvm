@@ -63,13 +63,13 @@ class CoinAdapter : DiffUtilAdapter<Coin, CoinAdapter.CoinViewHolder>(
 
     inner class CoinViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+        private var animator: ValueAnimator? = null
 
         private fun getAnimator(from: Int, to: Int) =
                 ValueAnimator.ofObject(ArgbEvaluator(), from, to, from).apply {
                     val background = itemView?.background as ColorDrawable
                     duration = 1000 // milliseconds.
                     addUpdateListener { animator -> background.color = animator.animatedValue as Int }
-
                 }
 
         private val sellColorAnimation by lazy {
@@ -89,6 +89,7 @@ class CoinAdapter : DiffUtilAdapter<Coin, CoinAdapter.CoinViewHolder>(
                 tv_item_coin_short_name.text = shortName ?: "N/A"
                 with(tv_item_coin_price) {
                     text = context.resources.getString(R.string.dollar_sign_format, price)
+                    setTextColor(Color.BLACK)
                 }
             }
 
@@ -96,11 +97,6 @@ class CoinAdapter : DiffUtilAdapter<Coin, CoinAdapter.CoinViewHolder>(
 
         fun priceUp(coin: Coin?) = with(itemView) {
             coin?.apply {
-
-                if (!sellColorAnimation.isRunning) {
-                    sellColorAnimation.start()
-                }
-
                 with(tv_item_coin_price) {
                     text = context.resources.getString(R.string.dollar_sign_format, price)
                     setTextColor(COLOR_SELL)
@@ -111,9 +107,6 @@ class CoinAdapter : DiffUtilAdapter<Coin, CoinAdapter.CoinViewHolder>(
         fun priceDown(coin: Coin?) = with(itemView) {
             coin?.apply {
 
-                if (!buyColorAnimation.isRunning) {
-                    buyColorAnimation.start()
-                }
                 with(tv_item_coin_price) {
                     text = context.resources.getString(R.string.dollar_sign_format, price)
                     setTextColor(COLOR_BUY)
@@ -130,27 +123,6 @@ class CoinAdapter : DiffUtilAdapter<Coin, CoinAdapter.CoinViewHolder>(
 
         val COLOR_BUY = Color.parseColor("#34bc7d")
         val COLOR_SELL = Color.parseColor("#ef7c7c")
-
-//        val DIFF_CALLBACK = CoinDiffItemCallback()
-//
-//        class CoinDiffItemCallback : DiffUtil.ItemCallback<Coin>() {
-//
-//            override fun getChangePayload(oldItem: Coin?, newItem: Coin?): Any? {
-//                return when {
-//                    oldItem == newItem -> super.getChangePayload(oldItem, newItem)
-//                    oldItem!!.price < newItem!!.price -> PRICE_UP
-//                    else -> PRICE_DOWN
-//                }
-//            }
-//
-//            override fun areItemsTheSame(oldItem: Coin?, newItem: Coin?): Boolean {
-//                return oldItem?.shortName == newItem?.shortName
-//            }
-//
-//            override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {
-//                return oldItem.price == newItem.price
-//            }
-//        }
     }
 
 
