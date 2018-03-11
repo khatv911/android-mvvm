@@ -42,7 +42,7 @@ class CoinListFragment : WithRecyclerFragment<List<Coin>, CoinListViewModel>(), 
 
     override fun onDataChanged(data: List<Coin>?) {
         data?.let {
-            mAdapter.submitList(it)
+            mAdapter.update(it)
         }
     }
 
