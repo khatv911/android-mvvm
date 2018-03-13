@@ -1,13 +1,11 @@
 package kay.clonedcoinio.models.repositories
 
-import android.arch.lifecycle.MediatorLiveData
 import com.kay.core.livedata.BaseRepository
 import com.kay.core.network.RequestState
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.socket.client.IO
-import kay.clonedcoinio.createStream
+import kay.clonedcoinio.createTradesStream
 import kay.clonedcoinio.models.Apis
 import kay.clonedcoinio.models.AppDatabase
 import kotlinx.coroutines.experimental.CommonPool
@@ -51,18 +49,14 @@ class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : Ba
      * Start the socket and handle stream event
      */
     fun startSocket() {
-        disposable.add(socket.createStream()
+        disposable.add(socket.createTradesStream()
                 .buffer(3, TimeUnit.SECONDS, 10)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(Schedulers.computation())
                 .subscribe {
-                    //                    Timber.d("from stream ${it.size}")
-//                    it.map { Timber.d("${it.shortName} ,") }
                     it.sortBy { it.shortName }
                     it.reverse()
                     val distinct = it.distinctBy { it.shortName }
-//                    Timber.d("distinct ${distinct.size}")
-//                    distinct.map { Timber.d("${it.shortName} ,") }
                     coinDao.update(distinct)
                 }
         )

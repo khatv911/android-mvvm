@@ -13,7 +13,7 @@ import kay.clonedcoinio.models.entities.CoinMessage
  * Email   : khatv911@gmail.com
  */
 
-fun Socket.createStream(): Flowable<CoinMessage> {
+fun Socket.createTradesStream(): Flowable<CoinMessage> {
     val moshi: Moshi = Moshi.Builder().build()
     val adapter = moshi.adapter(CoinMessage::class.java)
     return Flowable.create<CoinMessage>({ sub ->
