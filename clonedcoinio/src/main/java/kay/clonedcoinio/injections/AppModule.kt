@@ -5,7 +5,6 @@ import android.arch.persistence.room.Room
 import com.kay.core.di.CoreModule
 import dagger.Module
 import dagger.Provides
-import kay.clonedcoinio.CustomListener
 import kay.clonedcoinio.models.AppDatabase
 import javax.inject.Named
 import javax.inject.Singleton
@@ -26,8 +25,4 @@ class AppModule {
     @Provides
     @Singleton
     fun provideDatabase(application: Application) = Room.databaseBuilder(application, AppDatabase::class.java, "AppDB.db").build()
-
-
-    @Provides
-    fun provideListener(appDatabase: AppDatabase) = CustomListener(appDatabase)
 }
