@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.kay.core.extension.inject
-import com.kay.core.ui.WithRecyclerFragment
+import com.kay.core.simple.SimpleListFragment
 import com.kay.core.utils.ItemHandler
 import com.kay.core.utils.Retriable
 import kay.clonedcoinio.R
@@ -20,7 +20,7 @@ import kay.clonedcoinio.viewmodels.CoinListViewModel
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinListFragment : WithRecyclerFragment<List<Coin>, CoinListViewModel>(), Retriable {
+class CoinListFragment : SimpleListFragment<List<Coin>, CoinListViewModel>(), Retriable {
 
 
     internal class CoinClickHandler : ItemHandler<Coin> {

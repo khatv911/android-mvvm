@@ -1,12 +1,10 @@
-package com.kay.core.ui
+package com.kay.core.simple
 
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.kay.core.R
-import com.kay.core.simple.SimpleFragment
-import com.kay.core.simple.SimpleViewModel
 import com.kay.core.utils.LoadingState
 import timber.log.Timber
 
@@ -15,7 +13,7 @@ import timber.log.Timber
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-abstract class WithRecyclerFragment<T, out VM : SimpleViewModel<T>> : SimpleFragment<T, VM>() {
+abstract class SimpleListFragment<T, out VM : SimpleViewModel<T>> : SimpleFragment<T, VM>() {
 
 
     private var mLoadingState: LoadingState = LoadingState.NONE
