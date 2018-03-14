@@ -5,11 +5,14 @@ package com.kay.core.utils
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
+
+/**
+ * Item Handler
+ */
 typealias ItemHandler<T> = (T) -> Unit
 
+/**
+ * Retry
+ */
 typealias Retry = (() -> Any)?
-
-interface CanSetTitle {
-    fun setActionBarTitle(title: String)
-}
 

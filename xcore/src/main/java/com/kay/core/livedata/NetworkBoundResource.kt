@@ -2,23 +2,27 @@ package com.kay.core.livedata
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
+import com.kay.core.error.exceptionThrower
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
 import retrofit2.Call
-import retrofit2.HttpException
-import ru.gildor.coroutines.retrofit.Result
 import ru.gildor.coroutines.retrofit.awaitResult
-import timber.log.Timber
+import ru.gildor.coroutines.retrofit.getOrThrow
 
 /**
  * Created by Kay Tran on 2/2/18.
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-abstract class NetworkBoundResource<PersistedData, NetworkResponse : Any> {
 
+/**
+ * This class can be useful in most cases (get a list of data from db, check for new data from network and update db)
+ * But do not abuse it. Your own data logic can be sufficient.
+ */
+
+abstract class NetworkBoundResource<PersistedData, NetworkResponse : Any> {
 
     private val result = MediatorLiveData<PersistedData?>()
 
@@ -29,22 +33,16 @@ abstract class NetworkBoundResource<PersistedData, NetworkResponse : Any> {
     }
 
     private fun loadData() {
-
-        /**
-         * we first load from db or cache, as long as return a livedata
-         */
-
         val dbSource = loadFromDB()
         result.addSource(dbSource, { data ->
-            setValue(data)
+            result.removeSource(dbSource)
             if (shouldFetch(data)) {
                 fetchFromNetwork(dbSource)
             } else {
-                onShouldNotFetch()
+                result.addSource(dbSource, { setValue(it) })
+                noNeedFetching()
             }
         })
-
-
     }
 
     fun asLiveData(): LiveData<PersistedData?> {
@@ -56,33 +54,28 @@ abstract class NetworkBoundResource<PersistedData, NetworkResponse : Any> {
         if (result.value != newValue) result.value = newValue
     }
 
-
-    private fun fetchFromNetwork(dbSource: LiveData<PersistedData?>) {
+    /**
+     * You may want to override this function in case you you have to call multiple requests
+     * If so, the NetworkResponse should be a wrapper of all responses.
+     * and {@link #createCall} can be empty
+     */
+    protected open fun fetchFromNetwork(dbSource: LiveData<PersistedData?>) {
+        result.addSource(dbSource, { setValue(it) })
         launch(UI) {
-            val networkResult = createCall().awaitResult()
-            when (networkResult) {
-                is Result.Ok -> {
-                    retry = null
-                    onFetchSuccess()
-                    result.removeSource(dbSource)
-                    async(CommonPool) { saveCallResult(networkResult.value) }.await()
-                    result.addSource(loadFromDB(), { freshData -> setValue(freshData) })
-                }
-                is Result.Error -> {
-                    Timber.e("Http Exception! ${networkResult.exception}")
-                    retry = {
-                        fetchFromNetwork(dbSource)
-                    }
-                    onFetchFailed(networkResult.exception)
-                }
-                is Result.Exception -> {
-                    Timber.e("Shit happens! ${networkResult.exception}")
-                    retry = {
-                        fetchFromNetwork(dbSource)
-                    }
-                    onException(networkResult.exception)
-                }
+            try {
+                val networkResult = createCall().awaitResult()
+                result.removeSource(dbSource)
+                val value = networkResult.getOrThrow()
+                retry = null
+                async(CommonPool + exceptionThrower) { saveCallResult(value) }.await()
+                result.addSource(loadFromDB(), { setValue(it) })
+                onFetchSuccess()
+            } catch (e: Throwable) {
+                retry = { fetchFromNetwork(dbSource) }
+                result.addSource(loadFromDB(), { setValue(it) })
+                onException(e)
             }
+
         }
     }
 
@@ -96,11 +89,9 @@ abstract class NetworkBoundResource<PersistedData, NetworkResponse : Any> {
 
     protected abstract fun onFetchSuccess()
 
-    protected abstract fun onFetchFailed(httpException: HttpException)
+    protected abstract fun noNeedFetching()
 
     protected abstract fun onException(e: Throwable)
-
-    protected abstract fun onShouldNotFetch()
 
 
 }

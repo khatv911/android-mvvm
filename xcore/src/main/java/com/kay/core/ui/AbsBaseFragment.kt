@@ -11,9 +11,7 @@ import com.kay.core.error.DefaultResolution
 import com.kay.core.error.DefaultUiResolver
 import com.kay.core.error.Resolution
 import com.kay.core.error.UiResolver
-import com.kay.core.utils.CanSetTitle
 import com.kay.core.utils.LoadingState
-import com.kay.core.viewmodel.AbsBaseViewModel
 import com.kay.core.viewmodel.LifecycleOwnerExt
 import com.kay.core.viewmodel.ViewModelFactory
 import dagger.android.support.DaggerFragment
@@ -24,7 +22,7 @@ import javax.inject.Inject
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-abstract class AbsBaseFragment :DaggerFragment(), LifecycleOwnerExt {
+abstract class AbsBaseFragment : DaggerFragment(), LifecycleOwnerExt {
 
 
     /**
@@ -66,8 +64,6 @@ abstract class AbsBaseFragment :DaggerFragment(), LifecycleOwnerExt {
      * The content view, inflated from a single layout file
      */
     protected lateinit var mContentView: View
-
-
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -129,7 +125,7 @@ abstract class AbsBaseFragment :DaggerFragment(), LifecycleOwnerExt {
     override fun onResume() {
         super.onResume()
         if (activity is CanSetTitle) {
-            (activity as CanSetTitle).setActionBarTitle(getActionBarTitle())
+            (activity as CanSetTitle).setTitle(getActionBarTitle())
         }
     }
 }

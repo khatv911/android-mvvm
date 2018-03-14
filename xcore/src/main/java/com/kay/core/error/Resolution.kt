@@ -1,6 +1,8 @@
 package com.kay.core.error
 
+import kotlinx.coroutines.experimental.CoroutineExceptionHandler
 import retrofit2.HttpException
+import kotlin.coroutines.experimental.CoroutineContext
 
 /**
  * Created by Kay Tran on 2/2/18.
@@ -40,4 +42,9 @@ interface ConnectivityResolution {
 
 interface Resolution : HttpResolution, GenericResolution, ConnectivityResolution {
     fun resolve(throwable: Throwable)
+}
+
+
+val exceptionThrower: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
+    throw throwable
 }

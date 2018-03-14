@@ -3,9 +3,8 @@ package com.kay.core.livedata
 import android.arch.lifecycle.LiveData
 import com.kay.core.network.RequestState
 import com.kay.core.utils.Retry
+import kotlinx.coroutines.experimental.CoroutineExceptionHandler
 import retrofit2.Call
-import retrofit2.HttpException
-import timber.log.Timber
 
 /**
  * Created by Kay Tran on 2/2/18.
@@ -14,22 +13,15 @@ import timber.log.Timber
  */
 abstract class BaseRepository {
 
-//    val primaryCoroutineExceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, e ->
-//        e.printStackTrace()
-//        state.value = RequestState.ERROR(e)
-//
-//    }
-//    val secondaryCoroutineExceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
-//        throwable.printStackTrace()
-//        throw throwable
-//    }
+    fun withRetryExceptionHandler(_retry: Retry) = CoroutineExceptionHandler { _, e ->
+        e.printStackTrace()
+        state.value = RequestState.ERROR(e)
+        retry.value = _retry
+    }
 
     val state = SingleLiveEvent<RequestState>()
 
-
     val retry = SingleLiveEvent<Retry>()
-
-
     //TODO: convert this function into an extension
     fun <PersistedData, NetworkResponse : Any> createNetworkBoundResource(dbCall: LiveData<PersistedData?>, networkCall: Call<NetworkResponse>, persistNetworkResult: (NetworkResponse) -> Unit, shouldFetch: (PersistedData?) -> Boolean):
             LiveData<PersistedData?> = object : NetworkBoundResource<PersistedData, NetworkResponse>() {
@@ -41,16 +33,9 @@ abstract class BaseRepository {
 
         override fun shouldFetch(resultType: PersistedData?): Boolean = shouldFetch(resultType)
 
-
         override fun onFetchSuccess() {
-            Timber.d("Network fetch success")
-            state.value = RequestState.SUCCESS("fetch success")
+            state.value = RequestState.SUCCESS("New Updated")
             this@BaseRepository.retry.value = null
-        }
-
-        override fun onFetchFailed(httpException: HttpException) {
-            state.value = RequestState.ERROR(httpException)
-            this@BaseRepository.retry.value = retry
         }
 
         override fun onException(e: Throwable) {
@@ -58,7 +43,7 @@ abstract class BaseRepository {
             this@BaseRepository.retry.value = retry
         }
 
-        override fun onShouldNotFetch() {
+        override fun noNeedFetching() {
             state.value = RequestState.DONE()
             this@BaseRepository.retry.value = null
         }

@@ -15,6 +15,7 @@ abstract class SimpleFragment<T, out VM : SimpleViewModel<T>> : AbsBaseFragment(
             mLiveData.observe(this@SimpleFragment, Observer {
                 it?.run { onDataChanged(it) }
             })
+            setup(this@SimpleFragment)
         }
     }
 

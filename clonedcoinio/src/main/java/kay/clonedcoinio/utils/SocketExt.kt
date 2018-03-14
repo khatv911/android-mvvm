@@ -1,4 +1,4 @@
-package kay.clonedcoinio
+package kay.clonedcoinio.utils
 
 import com.squareup.moshi.Moshi
 import io.socket.client.Socket
