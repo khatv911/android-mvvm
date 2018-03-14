@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel
 import com.kay.core.livedata.SingleLiveEvent
 import com.kay.core.network.RequestState
 import com.kay.core.utils.LoadingState
+import com.kay.core.utils.Retry
 
 
 /**
@@ -16,7 +17,15 @@ import com.kay.core.utils.LoadingState
 abstract class AbsBaseViewModel : ViewModel() {
 
 
+    /**
+     * Composite State Event
+     */
     protected var mStateEvent = MediatorLiveData<RequestState>()
+
+    /**
+     * Composite Retry Event
+     */
+    protected val mRetryEvent = MediatorLiveData<Retry>()
 
     /**
      * tell view to show loading or not
@@ -98,9 +107,15 @@ abstract class AbsBaseViewModel : ViewModel() {
             lifecycleOwnerExt.onSuccess(it)
         })
 
-        mStateEvent.observe(lifecycleOwnerExt, Observer {
-            // noOpt
-        })
+        /**
+         * No-Op
+         */
+        mStateEvent.observe(lifecycleOwnerExt, Observer {})
+
+        /**
+         * No-Op
+         */
+        mRetryEvent.observe(lifecycleOwnerExt, Observer { })
     }
 
 }

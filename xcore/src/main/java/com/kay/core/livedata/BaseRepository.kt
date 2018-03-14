@@ -2,6 +2,7 @@ package com.kay.core.livedata
 
 import android.arch.lifecycle.LiveData
 import com.kay.core.network.RequestState
+import com.kay.core.utils.Retry
 import retrofit2.Call
 import retrofit2.HttpException
 import timber.log.Timber
@@ -26,7 +27,7 @@ abstract class BaseRepository {
     val state = SingleLiveEvent<RequestState>()
 
 
-    var retry: (() -> Any)? = null
+    val retry = SingleLiveEvent<Retry>()
 
 
     //TODO: convert this function into an extension
@@ -44,22 +45,22 @@ abstract class BaseRepository {
         override fun onFetchSuccess() {
             Timber.d("Network fetch success")
             state.value = RequestState.SUCCESS("fetch success")
-            this@BaseRepository.retry = null
+            this@BaseRepository.retry.value = null
         }
 
         override fun onFetchFailed(httpException: HttpException) {
             state.value = RequestState.ERROR(httpException)
-            this@BaseRepository.retry = retry
+            this@BaseRepository.retry.value = retry
         }
 
         override fun onException(e: Throwable) {
             state.value = RequestState.ERROR(e)
-            this@BaseRepository.retry = retry
+            this@BaseRepository.retry.value = retry
         }
 
         override fun onShouldNotFetch() {
             state.value = RequestState.DONE()
-            this@BaseRepository.retry = null
+            this@BaseRepository.retry.value = null
         }
     }.asLiveData()
 

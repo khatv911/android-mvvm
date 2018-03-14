@@ -28,15 +28,27 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
     }
 
     fun retry() {
-        setLoading()
-        repository.retry?.invoke()
+        mRetryEvent.value?.let {
+            it.invoke()
+            setLoading()
+        }
     }
 
     init {
         mLiveData = trigger.smap { repository.getAllCoins() }
-        mStateEvent.addSource(repository.state, {
-            it?.let { extractState(it) }
-        })
+
+        mStateEvent.apply {
+            addSource(repository.state, {
+                it?.let { extractState(it) }
+            })
+        }
+
+        mRetryEvent.apply {
+            addSource(repository.retry, {
+                value = it
+            })
+        }
+
         repository.startSocket()
 
     }

@@ -45,6 +45,8 @@ class CoinListFragment : SimpleListFragment<List<Coin>, CoinListViewModel>(), Re
     override fun getActionBarTitle(): String = "Cloned Coin Cap"
 
     override fun setupRecyclerView() {
+
+
         mRecyclerView.apply {
             setHasFixedSize(true)
             adapter = mAdapter

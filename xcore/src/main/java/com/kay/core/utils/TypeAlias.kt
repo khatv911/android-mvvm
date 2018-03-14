@@ -7,6 +7,8 @@ package com.kay.core.utils
  */
 typealias ItemHandler<T> = (T) -> Unit
 
+typealias Retry = (() -> Any)?
+
 interface CanSetTitle {
     fun setActionBarTitle(title: String)
 }

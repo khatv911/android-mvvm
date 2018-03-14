@@ -75,7 +75,7 @@ class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : Ba
     /**
      * Do refreshing
      */
-    fun refresh() {
+    fun refresh(a: Int = 0) {
         launch(UI) {
             try {
                 val networkResult = webService.getCoins().awaitResult()
@@ -83,7 +83,7 @@ class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : Ba
                 async(CommonPool) { coinDao.refresh(coins) }.await()
                 state.value = RequestState.DONE()
             } catch (e: Throwable) {
-                retry = { refresh() }
+                retry.value = { refresh(1) }
                 state.value = RequestState.ERROR(e)
             }
         }

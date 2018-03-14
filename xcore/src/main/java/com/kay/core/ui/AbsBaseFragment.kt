@@ -84,11 +84,8 @@ abstract class AbsBaseFragment :DaggerFragment(), LifecycleOwnerExt {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         mLoadingView = view.findViewById(R.id.progress_bar)
-
         mContentView = view.findViewById(R.id.base_content)
-
     }
 
 
