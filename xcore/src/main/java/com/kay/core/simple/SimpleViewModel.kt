@@ -1,4 +1,4 @@
-package com.kay.core.viewmodel.simple
+package com.kay.core.simple
 
 import android.arch.lifecycle.LiveData
 import com.kay.core.viewmodel.AbsBaseViewModel

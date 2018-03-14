@@ -49,18 +49,21 @@ abstract class AbsBaseViewModel : ViewModel() {
     fun extractState(state: RequestState) {
 
         when (state) {
-            RequestState.FETCHING -> {
-                //No Opt
-//                mLoadingEvent.value = LoadingState.NORMAL
+            RequestState.STARTED -> {
+                // unused for now
             }
-            is RequestState.SUCCESS -> {
+            is RequestState.DONE -> {
                 mLoadingEvent.value = LoadingState.NONE
-                setSuccessMessage(state.message)
+                when (state) {
+                    is RequestState.SUCCESS -> {
+                        setSuccessMessage(state.message)
+                    }
+                    is RequestState.ERROR -> {
+                        setError(state.throwable)
+                    }
+                }
             }
-            is RequestState.ERROR -> {
-                mLoadingEvent.value = LoadingState.NONE
-                setError(state.throwable)
-            }
+
         }
     }
 

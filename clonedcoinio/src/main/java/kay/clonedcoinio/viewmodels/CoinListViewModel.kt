@@ -2,8 +2,7 @@ package kay.clonedcoinio.viewmodels
 
 import android.arch.lifecycle.MutableLiveData
 import com.kay.core.extension.smap
-import com.kay.core.viewmodel.AbsBaseViewModel
-import com.kay.core.viewmodel.simple.SimpleViewModel
+import com.kay.core.simple.SimpleViewModel
 import kay.clonedcoinio.models.entities.Coin
 import kay.clonedcoinio.models.repositories.CoinRepository
 import javax.inject.Inject

@@ -2,11 +2,9 @@ package com.kay.core.livedata
 
 import android.arch.lifecycle.LiveData
 import com.kay.core.network.RequestState
-import kotlinx.coroutines.experimental.CoroutineExceptionHandler
 import retrofit2.Call
 import retrofit2.HttpException
 import timber.log.Timber
-import kotlin.coroutines.experimental.CoroutineContext
 
 /**
  * Created by Kay Tran on 2/2/18.
@@ -60,8 +58,7 @@ abstract class BaseRepository {
         }
 
         override fun onShouldNotFetch() {
-            Timber.d("no need to fetch, db data is valid")
-            state.value = RequestState.SUCCESS("db data is good")
+            state.value = RequestState.DONE()
             this@BaseRepository.retry = null
         }
     }.asLiveData()

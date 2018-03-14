@@ -70,10 +70,8 @@ class CoinListFragment : WithRecyclerFragment<List<Coin>, CoinListViewModel>(), 
     }
 
 
-    override fun onDataChanged(t: List<Coin>?) {
-        t?.let {
-            mAdapter.update(it)
-        }
+    override fun onDataChanged(t: List<Coin>) {
+        mAdapter.update(t)
     }
 
     /**
