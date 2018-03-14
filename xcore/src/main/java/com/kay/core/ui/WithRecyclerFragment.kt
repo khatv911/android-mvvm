@@ -1,5 +1,6 @@
 package com.kay.core.ui
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
@@ -7,6 +8,8 @@ import android.view.View
 import com.kay.core.R
 import com.kay.core.utils.LoadingState
 import com.kay.core.viewmodel.AbsBaseViewModel
+import com.kay.core.viewmodel.simple.SimpleLifecycleOwner
+import com.kay.core.viewmodel.simple.SimpleViewModel
 import timber.log.Timber
 
 /**
@@ -14,7 +17,8 @@ import timber.log.Timber
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-abstract class WithRecyclerFragment<T, VM : AbsBaseViewModel<T>> : AbsVMBaseFragment<T, VM>() {
+abstract class WithRecyclerFragment<T, VM : SimpleViewModel<T>> : AbsVMBaseFragment<VM>(), SimpleLifecycleOwner<T> {
+
 
     private var mLoadingState: LoadingState = LoadingState.NONE
 
@@ -43,6 +47,15 @@ abstract class WithRecyclerFragment<T, VM : AbsBaseViewModel<T>> : AbsVMBaseFrag
 
         mSwipeRefreshLayout?.setOnRefreshListener {
             doOnRefresh()
+        }
+
+        /**
+         * Use the SimpleViewModel to observe the stream.
+         */
+        mViewModel.apply {
+            mLiveData.observe(this@WithRecyclerFragment, Observer {
+                onDataChanged(it)
+            })
         }
 
     }

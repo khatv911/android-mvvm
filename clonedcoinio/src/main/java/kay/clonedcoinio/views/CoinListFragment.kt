@@ -22,6 +22,7 @@ import kay.clonedcoinio.viewmodels.CoinListViewModel
  */
 class CoinListFragment : WithRecyclerFragment<List<Coin>, CoinListViewModel>(), Retriable {
 
+
     internal class CoinClickHandler : ItemHandler<Coin> {
         override fun invoke(p1: Coin) {
             //
@@ -34,17 +35,12 @@ class CoinListFragment : WithRecyclerFragment<List<Coin>, CoinListViewModel>(), 
         }
     }
 
+
     private val mAdapter = CoinAdapter()
 
     override fun getViewModel(): CoinListViewModel = VIEW_MODEL_FACTORY.inject(this, CoinListViewModel::class.java)
 
     override fun getLayoutId(): Int = R.layout.fragment_master
-
-    override fun onDataChanged(data: List<Coin>?) {
-        data?.let {
-            mAdapter.update(it)
-        }
-    }
 
     override fun getActionBarTitle(): String = "Cloned Coin Cap"
 
@@ -71,6 +67,13 @@ class CoinListFragment : WithRecyclerFragment<List<Coin>, CoinListViewModel>(), 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewModel.getAllCoins()
+    }
+
+
+    override fun onDataChanged(t: List<Coin>?) {
+        t?.let {
+            mAdapter.update(it)
+        }
     }
 
     /**

@@ -39,10 +39,9 @@ abstract class DiffUtilAdapter<D, VH : RecyclerView.ViewHolder> : RecyclerView.A
     private suspend fun internalUpdate(list: List<D>) {
         val result = DiffUtil.calculateDiff(diffCallback.apply { newList = list }, false)
         launch(UI) {
-
             result.dispatchUpdatesTo(this@DiffUtilAdapter)
-            onEmptyListCallback?.invoke()
             mData = list
+            if (mData.isEmpty()) onEmptyListCallback?.invoke()
         }.join()
     }
 

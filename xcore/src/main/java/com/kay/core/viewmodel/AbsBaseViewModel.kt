@@ -1,20 +1,19 @@
 package com.kay.core.viewmodel
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import com.kay.core.livedata.SingleLiveEvent
 import com.kay.core.network.RequestState
 import com.kay.core.utils.LoadingState
-import timber.log.Timber
+
 
 /**
- * Created by Kay Tran on 2/2/18.
- * Profile: https://github.com/khatv911
- * Email: khatv911@gmail.com
+ * Created by Kay Tran on 13/3/18.
+ * Profile : https://github.com/khatv911
+ * Email   : khatv911@gmail.com
  */
-abstract class AbsBaseViewModel<T> : ViewModel() {
+abstract class AbsBaseViewModel : ViewModel() {
 
 
     protected var mStateEvent = MediatorLiveData<RequestState>()
@@ -30,9 +29,9 @@ abstract class AbsBaseViewModel<T> : ViewModel() {
      */
     private val mErrorEvent = SingleLiveEvent<Throwable>()
 
+
     private val mSuccessEvent = SingleLiveEvent<String>()
 
-    protected lateinit var mLiveData: LiveData<T?>
 
     protected fun setLoading() {
         mLoadingEvent.value = LoadingState.NORMAL
@@ -74,13 +73,7 @@ abstract class AbsBaseViewModel<T> : ViewModel() {
         mSuccessEvent.value = message
     }
 
-    open fun setup(lifecycleOwnerExt: LifecycleOwnerExt<T>) {
-        /**
-         * Data returned
-         */
-        mLiveData.observe(lifecycleOwnerExt, Observer {
-            lifecycleOwnerExt.onDataChanged(it)
-        })
+    fun setup(lifecycleOwnerExt: LifecycleOwnerExt) {
         /**
          * Take care of loading state
          */
@@ -95,7 +88,6 @@ abstract class AbsBaseViewModel<T> : ViewModel() {
             lifecycleOwnerExt.onError(it)
         })
 
-
         /**
          * Not so much useful
          */
@@ -107,6 +99,5 @@ abstract class AbsBaseViewModel<T> : ViewModel() {
             // noOpt
         })
     }
-
 
 }

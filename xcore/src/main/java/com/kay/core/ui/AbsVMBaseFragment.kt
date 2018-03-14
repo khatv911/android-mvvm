@@ -13,7 +13,6 @@ import com.kay.core.error.Resolution
 import com.kay.core.error.UiResolver
 import com.kay.core.utils.LoadingState
 import com.kay.core.viewmodel.AbsBaseViewModel
-import com.kay.core.viewmodel.HasViewModel
 import com.kay.core.viewmodel.LifecycleOwnerExt
 import com.kay.core.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -23,7 +22,7 @@ import javax.inject.Inject
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-abstract class AbsVMBaseFragment<T, VM : AbsBaseViewModel<T>> : AbsBaseFragment(), LifecycleOwnerExt<T>, HasViewModel<T, VM> {
+abstract class AbsVMBaseFragment<VM : AbsBaseViewModel> : AbsBaseFragment(), LifecycleOwnerExt {
 
 
     /**
@@ -96,6 +95,8 @@ abstract class AbsVMBaseFragment<T, VM : AbsBaseViewModel<T>> : AbsBaseFragment(
         }
 
     }
+
+    abstract fun getViewModel(): VM
 
     override fun onLoadingStateChanged(loadingState: LoadingState?) = when (loadingState) {
         LoadingState.NORMAL -> mLoadingView.show()

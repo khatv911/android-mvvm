@@ -8,17 +8,12 @@ import com.kay.core.utils.LoadingState
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-interface LifecycleOwnerExt<in T>: LifecycleOwner{
 
+interface LifecycleOwnerExt : LifecycleOwner {
     /**
      * loading state change
      */
-    fun onLoadingStateChanged(loadingState:LoadingState? = LoadingState.NORMAL)
-
-    /**
-     * interested com.kay.apptemplate.data
-     */
-    fun onDataChanged(data: T?)
+    fun onLoadingStateChanged(loadingState: LoadingState? = LoadingState.NORMAL)
 
     /**
      *
