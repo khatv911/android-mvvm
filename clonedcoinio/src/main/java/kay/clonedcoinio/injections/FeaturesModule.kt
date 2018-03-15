@@ -2,7 +2,6 @@ package com.kay.apptemplate.di
 
 import android.app.Application
 import android.arch.lifecycle.ViewModelProvider
-import com.kay.core.di.PerActivity
 import com.kay.core.viewmodel.ViewModelFactory
 import dagger.Binds
 import dagger.Module

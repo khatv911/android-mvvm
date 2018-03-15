@@ -2,7 +2,6 @@ package com.kay.core.di
 
 import android.app.Application
 import android.content.SharedPreferences
-import com.kay.core.BuildConfig
 import com.kay.core.enviroments.inject
 import com.kay.core.extension.PrefHelper
 import com.kay.core.network.AccessTokenInterceptor
@@ -10,10 +9,8 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import timber.log.Timber
 import javax.inject.Named
 import javax.inject.Singleton
 

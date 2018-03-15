@@ -1,7 +1,6 @@
 package com.kay.core.error
 
 import com.kay.core.R
-import javax.inject.Inject
 
 /**
  * Created by Kay Tran on 2/2/18.

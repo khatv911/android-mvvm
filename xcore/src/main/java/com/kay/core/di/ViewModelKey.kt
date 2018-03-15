@@ -2,8 +2,6 @@ package com.kay.core.di
 
 import android.arch.lifecycle.ViewModel
 import dagger.MapKey
-import java.lang.annotation.ElementType
-import java.lang.annotation.Target
 import kotlin.reflect.KClass
 
 /**

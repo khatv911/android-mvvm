@@ -1,7 +1,6 @@
 package kay.clonedcoinio.injections
 
 import android.arch.lifecycle.ViewModel
-import com.kay.core.di.BaseVMModule
 import com.kay.core.di.ViewModelKey
 import dagger.Binds
 import dagger.Module

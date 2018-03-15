@@ -1,9 +1,9 @@
 package kay.clonedcoinio.utils
 
 import com.squareup.moshi.Moshi
-import io.socket.client.Socket
-import io.reactivex.Flowable
 import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
+import io.socket.client.Socket
 import kay.clonedcoinio.models.entities.CoinMessage
 
 

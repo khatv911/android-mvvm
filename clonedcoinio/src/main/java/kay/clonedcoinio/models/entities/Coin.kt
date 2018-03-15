@@ -1,7 +1,6 @@
 package kay.clonedcoinio.models.entities
 
 import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import com.squareup.moshi.Json
 
