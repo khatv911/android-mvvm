@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kay.clonedcoinio.MainActivity">
+    tools:context="kay.clonedcoinio.modules.login.MainActivity">
 
     <!--<TextView-->
     <!--android:layout_width="wrap_content"-->
@@ -16,14 +16,14 @@
 
     <!--<fragment-->
         <!--android:id="@+id/fragmentMaster"-->
-        <!--android:name="kay.clonedcoinio.views.CoinListFragment"-->
+        <!--android:nakay.clonedcoinio.modules.coin.CoinListFragmentment"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent" />-->
 
 
     <fragment
         android:id="@+id/fragmentMaster"
-        android:name="kay.clonedcoinio.views.LoginFragment"
+        android:name="kay.clonedcoinio.modules.login.LoginFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

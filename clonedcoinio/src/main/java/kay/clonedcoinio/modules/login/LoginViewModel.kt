@@ -1,4 +1,4 @@
-package kay.clonedcoinio.viewmodels
+package kay.clonedcoinio.modules.login
 
 import com.kay.core.viewmodel.AbsBaseViewModel
 import kay.clonedcoinio.models.repositories.LoginRepository

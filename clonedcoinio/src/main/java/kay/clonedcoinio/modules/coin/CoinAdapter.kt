@@ -1,4 +1,4 @@
-package kay.clonedcoinio.views
+package kay.clonedcoinio.modules.coin
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator

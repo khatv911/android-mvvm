@@ -4,46 +4,20 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import com.kay.core.R
 import com.kay.core.utils.Retriable
+import java.lang.ref.WeakReference
 
 /**
  * Created by Kay Tran on 2/2/18.
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class DefaultUiResolver constructor(private val fragment: Fragment) : UiResolver {
-    override fun resolveErrorMessage(message: String, retryOption: Pair<Boolean, Int?>) {
-        fragment.view?.let {
-            Snackbar.make(it, message, Snackbar.LENGTH_INDEFINITE).apply {
-                if (fragment is Retriable && retryOption.first) {
-                    setAction(retryOption.second ?: R.string.retry, {
-                        dismiss()
-                        fragment.retry()
-                    })
-                } else {
-                    setAction(R.string.dismiss, {
-                        dismiss()
-                    })
-                }
-            }.show()
-        }
-    }
+open class DefaultUiResolver constructor(protected val fragmentRef: WeakReference<Fragment>) : UiResolver {
 
-    override fun resolveErrorMessage(resource: Int, retryOption: Pair<Boolean, Int?>) {
-        fragment.view?.let {
-            Snackbar.make(it, resource, Snackbar.LENGTH_INDEFINITE).apply {
-                if (fragment is Retriable && retryOption.first) {
-                    setAction(retryOption.second ?: R.string.retry, {
-                        dismiss()
-                        fragment.retry()
-                    })
-                } else {
-                    setAction(R.string.dismiss, {
-                        dismiss()
-                    })
-                }
-            }.show()
-        }
-    }
+    constructor(fragment: Fragment) : this(WeakReference(fragment))
+
+    override fun resolveErrorMessage(message: String, retryOption: Pair<Boolean, Int?>) {}
+
+    override fun resolveErrorMessage(resource: Int, retryOption: Pair<Boolean, Int?>) {}
 
     //NO-OP
     override fun showConnectivity(available: Boolean) {}
@@ -56,13 +30,5 @@ class DefaultUiResolver constructor(private val fragment: Fragment) : UiResolver
     //NO-OP
     override fun resolveForbidden() {}
 
-    override fun showSuccess(message: String?) {
-        fragment.view?.let {
-            Snackbar.make(it, message ?: "Great Job!", Snackbar.LENGTH_INDEFINITE).apply {
-                setAction(R.string.dismiss, {
-                    dismiss()
-                })
-            }.show()
-        }
-    }
+    override fun showSuccess(message: String?) {}
 }

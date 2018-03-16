@@ -1,4 +1,4 @@
-package kay.clonedcoinio.views
+package kay.clonedcoinio.modules.coin
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -7,13 +7,15 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import com.kay.core.error.DefaultResolution
+import com.kay.core.error.Resolution
 import com.kay.core.extension.inject
 import com.kay.core.simple.SimpleListFragment
 import com.kay.core.utils.ItemHandler
 import com.kay.core.utils.Retriable
 import kay.clonedcoinio.R
 import kay.clonedcoinio.models.entities.Coin
-import kay.clonedcoinio.viewmodels.CoinListViewModel
+import kay.clonedcoinio.resolver.FcsUiResolver
 
 /**
  * Created by Kay Tran on 2/2/18.
@@ -33,6 +35,14 @@ class CoinListFragment : SimpleListFragment<List<Coin>, CoinListViewModel>(), Re
         override fun invoke(p1: Coin) {
 
         }
+    }
+
+
+    /**
+     * Composition over inheritance
+     */
+    override fun getResolution(): Resolution? {
+        return DefaultResolution(mutableListOf(FcsUiResolver(this)))
     }
 
 

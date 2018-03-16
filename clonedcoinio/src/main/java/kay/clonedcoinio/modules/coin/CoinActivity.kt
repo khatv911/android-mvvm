@@ -1,7 +1,8 @@
-package kay.clonedcoinio
+package kay.clonedcoinio.modules.coin
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import kay.clonedcoinio.R
 
 /**
  * Created by Kay Tran on 16/3/18.

@@ -6,8 +6,8 @@ import com.kay.core.viewmodel.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 import kay.clonedcoinio.App
-import kay.clonedcoinio.injections.CoinModule
-import kay.clonedcoinio.injections.LoginModule
+import kay.clonedcoinio.modules.coin.CoinModule
+import kay.clonedcoinio.modules.login.LoginModule
 import javax.inject.Singleton
 
 /**

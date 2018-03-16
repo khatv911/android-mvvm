@@ -1,17 +1,19 @@
-package kay.clonedcoinio.views
+package kay.clonedcoinio.modules.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.View
 import com.kay.core.error.DefaultResolution
+import com.kay.core.error.DefaultUiResolver
 import com.kay.core.error.Resolution
 import com.kay.core.error.UiResolver
 import com.kay.core.extension.inject
 import com.kay.core.ui.AbsBaseFragment
 import com.kay.core.utils.Retriable
-import kay.clonedcoinio.CoinActivity
+import kay.clonedcoinio.modules.coin.CoinActivity
 import kay.clonedcoinio.R
-import kay.clonedcoinio.viewmodels.LoginViewModel
+import kay.clonedcoinio.resolver.FcsUiResolver
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
@@ -34,19 +36,37 @@ class LoginFragment : AbsBaseFragment(), Retriable {
         }
     }
 
-    private val loginResolver: UiResolver by lazy {
-        FcsUiResolver(this)
+
+    /**
+     * Composition over inheritance
+     */
+    override fun getResolution(): Resolution? {
+        return DefaultResolution(mutableListOf(FcsUiResolver(this)))
+                .apply { addResolver(LoginUiResolver(this@LoginFragment)) }
     }
 
-    // lazy function -> move this to another 'BaseFcsFragment' maybe.
-    override fun getResolution(): Resolution? {
-        return DefaultResolution(
-                defaultUiResolvers.apply {
-                    clear()
-                    add(loginResolver)
+
+//   override fun onSuccess(message: String?) {
+//        super.onSuccess(message)
+//
+//        launch(UI) {
+//            delay(3, TimeUnit.SECONDS)
+//            startActivity(Intent(this@LoginFragment.context, CoinActivity::class.java))
+//        }
+//    }
+
+    inner class LoginUiResolver(fragment: Fragment) : DefaultUiResolver(fragment) {
+        override fun showSuccess(message: String?) {
+            val fragment = fragmentRef.get()
+            fragment?.let {
+                launch(UI) {
+                    delay(3, TimeUnit.SECONDS)
+                    startActivity(Intent(it.context, CoinActivity::class.java))
                 }
-        )
+            }
+        }
     }
+
 
     override fun retry() {
         mViewModel.retry()
@@ -63,15 +83,6 @@ class LoginFragment : AbsBaseFragment(), Retriable {
             val userName = edit_username.text.trim().toString()
             val password = edit_password.text.trim().toString()
             mViewModel.login(userName, password)
-        }
-    }
-
-    override fun onSuccess(message: String?) {
-        super.onSuccess(message)
-
-        launch(UI) {
-            delay(3, TimeUnit.SECONDS)
-            startActivity(Intent(this@LoginFragment.context, CoinActivity::class.java))
         }
     }
 }

@@ -1,4 +1,4 @@
-package kay.clonedcoinio.viewmodels
+package kay.clonedcoinio.modules.coin
 
 import android.arch.lifecycle.MutableLiveData
 import com.kay.core.extension.smap
