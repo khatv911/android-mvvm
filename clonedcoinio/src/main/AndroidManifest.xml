@@ -9,7 +9,6 @@
 
 
     <application
-
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,9 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service
-            android:name=".SocketIoService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <activity android:name=".CoinActivity" />
+
+        <!--<service-->
+            <!--android:name=".SocketIoService"-->
+            <!--android:permission="android.permission.BIND_JOB_SERVICE" />-->
     </application>
 
 </manifest>

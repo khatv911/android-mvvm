@@ -42,6 +42,7 @@ interface ConnectivityResolution {
 
 interface Resolution : HttpResolution, GenericResolution, ConnectivityResolution {
     fun resolve(throwable: Throwable)
+    fun success(message: String?)
 }
 
 

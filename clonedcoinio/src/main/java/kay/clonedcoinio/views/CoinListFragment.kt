@@ -74,7 +74,7 @@ class CoinListFragment : SimpleListFragment<List<Coin>, CoinListViewModel>(), Re
 
     override fun onDataChanged(t: List<Coin>) {
         mAdapter.submitList(t)
-}
+    }
 
     /**
      *
@@ -88,5 +88,11 @@ class CoinListFragment : SimpleListFragment<List<Coin>, CoinListViewModel>(), Re
      */
     override fun doOnRefresh() {
         mViewModel.refresh()
+    }
+
+    companion object {
+        fun newInstance() = CoinListFragment().apply {
+            arguments = Bundle().apply { }
+        }
     }
 }

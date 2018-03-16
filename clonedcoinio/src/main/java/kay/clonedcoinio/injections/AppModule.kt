@@ -20,7 +20,8 @@ class AppModule {
     @Provides
     @Singleton
     @Named("baseUrl")
-    fun provideBaseUrl() = "http://coincap.io"
+    fun provideBaseUrl() = "https://app.cosmopms.com"
+            //"http://coincap.io"
 
     @Provides
     @Singleton

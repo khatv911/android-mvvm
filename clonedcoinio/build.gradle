@@ -3,13 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 android {
-    compileSdkVersion buildConfig.compileSdk
+    compileSdkVersion 27
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-
     defaultConfig {
         applicationId "kay.clonedcoinio"
         minSdkVersion buildConfig.minSdk
@@ -34,7 +32,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
@@ -44,59 +41,52 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar']) // useless
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // useless
     implementation project(':xcore')
-
     implementation deps.kotlin.stdlib.jdk
     implementation deps.kotlin.coroutines.jdk
     implementation deps.kotlin.coroutines.android
-
     //dagger
     implementation deps.dagger.runtime
     kapt deps.dagger.compiler
     implementation deps.dagger.android.runtime
     implementation deps.dagger.android.support
     kapt deps.dagger.android.proccesor
-
     implementation deps.android.arch.lifecycle.extensions
     kapt deps.android.arch.lifecycle.compiler
-
     implementation deps.android.arch.room.runtime
     kapt deps.android.arch.room.compiler
-
     implementation deps.okhttp.client
     implementation deps.okhttp.logging
     implementation deps.retrofit.client
     implementation deps.retrofit.koroutine
     implementation deps.retrofit.converterMoshi
-
     // timber
     implementation deps.timber
-
     // Views
     implementation deps.android.support.constraintLayout
     implementation deps.android.support.appCompat
     implementation deps.android.support.fragment
     implementation deps.android.support.recyclerView
     implementation deps.android.support.coreUi
+    implementation deps.android.support.design
+    implementation deps.alerter
 
     implementation deps.rx.kotlin
     implementation deps.rx.android
 
-//    implementation deps.groupie
-//    implementation deps["groupie.kotlin"]
+
 
 
     implementation('io.socket:socket.io-client:1.0.0') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

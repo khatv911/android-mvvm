@@ -7,6 +7,7 @@ import dagger.Binds
 import dagger.Module
 import kay.clonedcoinio.App
 import kay.clonedcoinio.injections.CoinModule
+import kay.clonedcoinio.injections.LoginModule
 import javax.inject.Singleton
 
 /**
@@ -14,7 +15,7 @@ import javax.inject.Singleton
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-@Module(includes = [CoinModule::class])
+@Module(includes = [CoinModule::class, LoginModule::class])
 abstract class FeaturesModule {
 
     @Binds

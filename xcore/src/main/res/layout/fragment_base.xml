@@ -4,6 +4,7 @@
 
     
     <android.support.v4.widget.ContentLoadingProgressBar
+        android:visibility="gone"
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"

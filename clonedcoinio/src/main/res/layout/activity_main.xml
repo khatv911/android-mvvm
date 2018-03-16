@@ -14,9 +14,16 @@
     <!--app:layout_constraintRight_toRightOf="parent"-->
     <!--app:layout_constraintTop_toTopOf="parent" />-->
 
+    <!--<fragment-->
+        <!--android:id="@+id/fragmentMaster"-->
+        <!--android:name="kay.clonedcoinio.views.CoinListFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
+
     <fragment
         android:id="@+id/fragmentMaster"
-        android:name="kay.clonedcoinio.views.CoinListFragment"
+        android:name="kay.clonedcoinio.views.LoginFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

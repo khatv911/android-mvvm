@@ -68,4 +68,10 @@ class DefaultResolution constructor(private val resolvers: MutableList<UiResolve
             it.resolveForbidden()
         }
     }
+
+    override fun success(message: String?) {
+        resolvers.map {
+            it.showSuccess(message)
+        }
+    }
 }

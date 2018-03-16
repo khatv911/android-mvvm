@@ -97,7 +97,9 @@ abstract class AbsBaseFragment : DaggerFragment(), LifecycleOwnerExt {
         }
     }
 
-    override fun onSuccess(message: String?) {}
+    override fun onSuccess(message: String?) {
+        uiResolution.success(message)
+    }
 
 
     abstract fun getLayoutId(): Int

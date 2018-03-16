@@ -51,8 +51,18 @@ class DefaultUiResolver constructor(private val fragment: Fragment) : UiResolver
     // NO-OP
     override fun resolveNotFound(retryOption: Pair<Boolean, Int?>) {}
 
-    override fun resolveUnAuthorized(){}
+    override fun resolveUnAuthorized() {}
 
     //NO-OP
     override fun resolveForbidden() {}
+
+    override fun showSuccess(message: String?) {
+        fragment.view?.let {
+            Snackbar.make(it, message ?: "Great Job!", Snackbar.LENGTH_INDEFINITE).apply {
+                setAction(R.string.dismiss, {
+                    dismiss()
+                })
+            }.show()
+        }
+    }
 }
