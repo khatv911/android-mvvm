@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.kay.core.extension.inflate
-import com.kay.core.ui.DiffUtilAdapter
+import com.kay.core.ui.DiffingAdapter
 import kay.clonedcoinio.R
 import kay.clonedcoinio.models.entities.Coin
 import kotlinx.android.synthetic.main.item_view_coin.view.*
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.item_view_coin.view.*
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinAdapter : DiffUtilAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_ITEM_CALLBACK) {
+class CoinAdapter : DiffingAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_ITEM_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
         return CoinViewHolder(parent.inflate(R.layout.item_view_coin))

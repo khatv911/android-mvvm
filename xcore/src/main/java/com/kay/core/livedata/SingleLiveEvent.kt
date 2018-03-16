@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * navigation and Snackbar messages.
  *
  *
- * This avoids a common problem with events: on configuration change (like rotation) an update
+ * This avoids a common problem with events: on configuration change (like rotation) an submitList
  * can be emitted if the observer is active. This LiveData only calls the observable if there's an
  * explicit call to setValue() or call().
  *

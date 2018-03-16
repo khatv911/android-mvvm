@@ -8,7 +8,6 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.channels.Channel
 import kotlinx.coroutines.experimental.channels.actor
 import kotlinx.coroutines.experimental.launch
-import java.util.*
 
 
 /**
@@ -16,24 +15,19 @@ import java.util.*
  * Profile : https://github.com/khatv911
  * Email   : khatv911@gmail.com
  */
-//
-//
-//
 class ListDiffer<D> constructor(private val mUpdateCallback: ListUpdateCallback, private val diffItemCallback: DiffUtil.ItemCallback<D>) {
 
     constructor(adapter: RecyclerView.Adapter<*>, itemCallback: DiffUtil.ItemCallback<D>) : this(AdapterListUpdateCallback(adapter), itemCallback)
 
     var onEmptyListCallback: (() -> Any)? = null
 
-    var mData: List<D> = listOf()
+    private var mData: List<D> = emptyList()
 
     private val diffCallback by lazy(LazyThreadSafetyMode.NONE) { DiffCallback(diffItemCallback) }
 
     private val eventActor = actor<List<D>>(capacity = Channel.CONFLATED) { for (list in channel) internalUpdate(list) }
 
-
-
-    fun update(list: List<D>) = eventActor.offer(list)
+    fun submitList(list: List<D>) = eventActor.offer(list)
 
     fun getItemCount() = mData.size
 

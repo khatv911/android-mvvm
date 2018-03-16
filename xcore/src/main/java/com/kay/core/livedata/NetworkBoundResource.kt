@@ -18,7 +18,7 @@ import ru.gildor.coroutines.retrofit.getOrThrow
  */
 
 /**
- * This class can be useful in most cases (get a list of data from db, check for new data from network and update db)
+ * This class can be useful in most cases (get a list of data from db, check for new data from network and submitList db)
  * But do not abuse it. Your own data logic can be sufficient.
  */
 
