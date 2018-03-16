@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -18,22 +19,7 @@ import kotlinx.android.synthetic.main.item_view_coin.view.*
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinAdapter : DiffUtilAdapter<Coin, CoinAdapter.CoinViewHolder>(
-) {
-
-    init {
-        compareItemsFunc = { coin1, coin2 -> coin1.shortName == coin2.shortName }
-        compareContentsFunc = { coin1, coin2 ->
-            coin1 == coin2
-        }
-        getPayloadFunc = { coin1, coin2 ->
-            when {
-                coin1 == coin2 -> null
-                coin1.price < coin2.price -> PRICE_UP
-                else -> PRICE_DOWN
-            }
-        }
-    }
+class CoinAdapter : DiffUtilAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_ITEM_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
         return CoinViewHolder(parent.inflate(R.layout.item_view_coin))
@@ -120,6 +106,23 @@ class CoinAdapter : DiffUtilAdapter<Coin, CoinAdapter.CoinViewHolder>(
 
         val COLOR_BUY = Color.parseColor("#34bc7d")
         val COLOR_SELL = Color.parseColor("#ef7c7c")
+
+        val DIFF_ITEM_CALLBACK = object : DiffUtil.ItemCallback<Coin>() {
+            override fun areItemsTheSame(oldItem: Coin, newItem: Coin): Boolean {
+                return oldItem.shortName == newItem.shortName
+            }
+
+            override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun getChangePayload(oldItem: Coin, newItem: Coin): Any {
+                return when {
+                    oldItem.price < newItem.price -> PRICE_UP
+                    else -> PRICE_DOWN
+                }
+            }
+        }
     }
 
 

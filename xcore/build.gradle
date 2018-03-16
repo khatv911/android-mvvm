@@ -66,6 +66,7 @@ dependencies {
     // Views
     implementation deps.android.support.fragment
     implementation deps.android.support.recyclerView
+    implementation deps.android.support.coreUtils
     implementation deps.android.support.coreUi
     implementation deps.android.support.design
 
