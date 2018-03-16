@@ -22,7 +22,7 @@ abstract class CoinDao {
     @Query("delete from tbl_coin")
     abstract fun deleteAllCoins()
 
-    @Query("submitList tbl_coin set price= :price where shortName= :name")
+    @Query("update tbl_coin set price= :price where shortName= :name")
     abstract fun update(name: String, price: Double)
 
     @Transaction

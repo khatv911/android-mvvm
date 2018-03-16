@@ -73,8 +73,8 @@ class CoinListFragment : SimpleListFragment<List<Coin>, CoinListViewModel>(), Re
 
 
     override fun onDataChanged(t: List<Coin>) {
-        mAdapter.update(t)
-    }
+        mAdapter.submitList(t)
+}
 
     /**
      *
