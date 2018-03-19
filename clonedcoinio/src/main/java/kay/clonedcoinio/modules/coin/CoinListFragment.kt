@@ -41,7 +41,7 @@ class CoinListFragment : SimpleListFragment<List<Coin>, CoinListViewModel>(), Re
     /**
      * Composition over inheritance
      */
-    override fun getResolution(): Resolution? {
+    override fun getResolution(): Resolution {
         return DefaultResolution(mutableListOf(FcsUiResolver(this)))
     }
 
@@ -66,7 +66,7 @@ class CoinListFragment : SimpleListFragment<List<Coin>, CoinListViewModel>(), Re
                 override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                     val position = parent.getChildAdapterPosition(view)
                     // hide the divider for the last child
-                    if (position == parent.adapter.itemCount - 1) {
+                    if (position == parent.adapter?.itemCount?.minus(1)) {
                         outRect.setEmpty()
                     } else {
                         super.getItemOffsets(outRect, view, parent, state)

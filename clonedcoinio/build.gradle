@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.getkeepsafe.dexcount'
+
+
 android {
     compileSdkVersion 'android-P'
     compileOptions {
@@ -14,6 +17,7 @@ android {
         targetSdkVersion buildConfig.targetSdk
         versionCode buildConfig.version.code
         versionName buildConfig.version.name
+
 
         // room schema
         javaCompileOptions {
@@ -31,38 +35,68 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+
+        // progaurds
+        proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                'proguard-rules.pro',
+                '../proguards/proguard-calligraphy-2.1.0.pro',
+                '../proguards/proguard-crashlytics-2.pro',
+                '../proguards/proguard-glide.pro',
+                '../proguards/proguard-google-play-services.pro',
+                '../proguards/proguard-rx-java.pro',
+                '../proguards/proguard-square-okio.pro',
+                '../proguards/proguard-square-okhttp3.pro',
+                '../proguards/proguard-square-retrofit2.pro',
+                '../proguards/proguard-dagger2.pro',
+                '../proguards/proguard-moshi.pro'
+
+
+
+
     }
     buildTypes {
+
         debug {
+            useProguard false
+            minifyEnabled true
             applicationIdSuffix ".debug"
+//            multiDexEnabled true
         }
         release {
+            useProguard true
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources true
         }
     }
-    buildToolsVersion '27.0.3'
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    // useless
+
+
     implementation project(':xcore')
     implementation deps.kotlin.stdlib.jdk
     implementation deps.kotlin.coroutines.jdk
     implementation deps.kotlin.coroutines.android
+
+
     //dagger
     implementation deps.dagger.runtime
     kapt deps.dagger.compiler
     implementation deps.dagger.android.runtime
     implementation deps.dagger.android.support
     kapt deps.dagger.android.proccesor
+
+
+    //Arch
     implementation deps.android.arch.lifecycle.extensions
     kapt deps.android.arch.lifecycle.compiler
     implementation deps.android.arch.room.runtime
     kapt deps.android.arch.room.compiler
+    implementation deps.android.arch.paging.runtime
+
+
     implementation deps.okhttp.client
-    implementation deps.okhttp.logging
     implementation deps.retrofit.client
     implementation deps.retrofit.koroutine
     implementation deps.retrofit.converterMoshi
@@ -90,6 +124,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+
 }
 kotlin {
     experimental {

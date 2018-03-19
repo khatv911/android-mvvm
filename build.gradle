@@ -3,9 +3,9 @@
 buildscript {
     ext.kotlin_version = '1.2.30'
     ext.buildConfig = [
-            'compileSdk': 28,
+            'compileSdk': 27,
             'minSdk'    : 21,
-            'targetSdk' : 28,
+            'targetSdk' : 27,
 
             'version'   : [
                     'major': 0,
@@ -30,7 +30,8 @@ buildscript {
             'rxbinding'          : '2.1.0',
             'arch'               : [
                     'extensions': '1.1.0',
-                    'room'      : '1.0.0'
+                    'room'      : '1.0.0',
+                    'paging'    : '1.0.0-alpha6'
             ],
             'glide'              : '3.7.0',
             'stetho'             : '1.5.0',
@@ -70,6 +71,9 @@ buildscript {
                             'lifecycle': [
                                     'extensions': "android.arch.lifecycle:extensions:${versions.arch.extensions}",
                                     'compiler'  : "android.arch.lifecycle:compiler:${versions.arch.extensions}"
+                            ],
+                            'paging':[
+                                    'runtime':"android.arch.paging:runtime:${versions.arch.paging}"
                             ]
                     ],
                     //TODO: support
@@ -83,7 +87,10 @@ buildscript {
                             'appCompat'       : "com.android.support:appcompat-v7:${versions.supportLibrary}",
                             'coreUi'          : "com.android.support:support-core-ui:${versions.supportLibrary}",
                             'fragment'        : "com.android.support:support-fragment:${versions.supportLibrary}",
-                            'selection'       : "com.android.support:recyclerview-selection:${versions.supportLibrary}"
+                            'selection'       : "com.android.support:recyclerview-selection:${versions.supportLibrary}",
+                            'viewpager'       : "com.android.support:viewpager:${versions.supportLibrary}",
+                            'coordinatorlayout': "com.android.support:coordinatorlayout:${versions.supportLibrary}",
+                            'drawerlayout': "com.android.support:drawerlayout:${versions.supportLibrary}"
                     ],
                     'x'      : [
                             'coreKtx': 'androidx.core:core-ktx:0.2',
@@ -144,10 +151,24 @@ buildscript {
     ]
 
 
+//    ext.libsProguardRules = [ 'proguard-rules.pro',
+//                          '../proguards/proguard-calligraphy-2.1.0.pro',
+//                          '../proguards/proguard-crashlytics-2.pro',
+//                          '../proguards/proguard-glide.pro',
+//                          '../proguards/proguard-google-play-services.pro',
+//                          '../proguards/proguard-rx-java.pro',
+//                          '../proguards/proguard-square-okio.pro',
+//                          '../proguards/proguard-square-okhttp3.pro',
+//                          '../proguards/proguard-square-retrofit2.pro',
+//                          '../proguards/proguard-dagger2.pro',
+//                          '../proguards/proguard-moshi.pro']
+
+
 
     repositories {
         google()
         jcenter()
+        mavenCentral()
         maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
@@ -156,6 +177,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in    the individual module build.gradle files
@@ -173,15 +195,15 @@ allprojects {
     }
 
     // Force all of the primary support libraries to use the same version.
-//    configurations.all {
-//        resolutionStrategy {
-//            eachDependency { details ->
-//                if (details.requested.group == 'com.android.support') {
-//                    details.useVersion versions.supportLibrary
-//                }
-//            }
-//        }
-//    }
+    configurations.all {
+        resolutionStrategy {
+            eachDependency { details ->
+                if (details.requested.group == 'com.android.support') {
+                    details.useVersion versions.supportLibrary
+                }
+            }
+        }
+    }
 }
 
 task clean(type: Delete) {

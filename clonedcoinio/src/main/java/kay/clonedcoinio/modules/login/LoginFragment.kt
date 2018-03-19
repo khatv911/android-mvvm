@@ -7,12 +7,11 @@ import android.view.View
 import com.kay.core.error.DefaultResolution
 import com.kay.core.error.DefaultUiResolver
 import com.kay.core.error.Resolution
-import com.kay.core.error.UiResolver
 import com.kay.core.extension.inject
 import com.kay.core.ui.AbsBaseFragment
 import com.kay.core.utils.Retriable
-import kay.clonedcoinio.modules.coin.CoinActivity
 import kay.clonedcoinio.R
+import kay.clonedcoinio.modules.coin.CoinActivity
 import kay.clonedcoinio.resolver.FcsUiResolver
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.experimental.android.UI
@@ -40,7 +39,7 @@ class LoginFragment : AbsBaseFragment(), Retriable {
     /**
      * Composition over inheritance
      */
-    override fun getResolution(): Resolution? {
+    override fun getResolution(): Resolution {
         return DefaultResolution(mutableListOf(FcsUiResolver(this)))
                 .apply { addResolver(LoginUiResolver(this@LoginFragment)) }
     }
@@ -80,8 +79,8 @@ class LoginFragment : AbsBaseFragment(), Retriable {
         super.onViewCreated(view, savedInstanceState)
 
         btn_login.setOnClickListener {
-            val userName = edit_username.text.trim().toString()
-            val password = edit_password.text.trim().toString()
+            val userName = edit_username.text?.trim().toString()
+            val password = edit_password.text?.trim().toString()
             mViewModel.login(userName, password)
         }
     }

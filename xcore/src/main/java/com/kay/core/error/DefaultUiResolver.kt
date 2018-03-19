@@ -1,9 +1,6 @@
 package com.kay.core.error
 
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import com.kay.core.R
-import com.kay.core.utils.Retriable
 import java.lang.ref.WeakReference
 
 /**

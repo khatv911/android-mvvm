@@ -50,7 +50,7 @@ class CoinAdapter : DiffingAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_ITEM_C
 
         private fun getAnimator(from: Int, to: Int) =
                 ValueAnimator.ofObject(ArgbEvaluator(), from, to, from).apply {
-                    val background = itemView?.background as ColorDrawable
+                    val background = itemView.background as ColorDrawable
                     duration = 1000 // milliseconds.
                     addUpdateListener { animator -> background.color = animator.animatedValue as Int }
                 }

@@ -26,27 +26,18 @@ abstract class AbsBaseFragment : DaggerFragment(), LifecycleOwnerExt {
 
 
     /**
-     * a default resolver , lazy init
-     */
-    protected val defaultUiResolvers by lazy {
-        val list: MutableList<UiResolver> = mutableListOf()
-        list.add(DefaultUiResolver(this))
-        list
-    }
-
-    /**
      * provide a resolution lazily.
      * fallback to default
      */
     private val uiResolution by lazy {
-        getResolution() ?: DefaultResolution(defaultUiResolvers)
+        getResolution()
     }
 
 
     /**
      * Override this method to provide proper resolution
      */
-    protected open fun getResolution(): Resolution? = null
+     abstract fun getResolution(): Resolution
 
     /**
      * The ViewModelFactory
