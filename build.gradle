@@ -3,9 +3,9 @@
 buildscript {
     ext.kotlin_version = '1.2.30'
     ext.buildConfig = [
-            'compileSdk': 27,
+            'compileSdk': 28,
             'minSdk'    : 21,
-            'targetSdk' : 27,
+            'targetSdk' : 28,
 
             'version'   : [
                     'major': 0,
@@ -19,12 +19,12 @@ buildscript {
 
     ext.versions = [
             //TODO: versions
-            'supportLibrary'     : '27.1.0',
+            'supportLibrary'     : '28.0.0-alpha1',
             'kotlin'             : '1.2.30',
             'kotlinCoroutines'   : '0.22.2',
             'kotlinSerialization': '0.4',
             'okhttp'             : '3.9.1',
-            'retrofit'           : '2.3.0',
+            'retrofit'           : '2.4.0',
             'kotshi'             : '0.3.0',
             'dagger'             : '2.14.1',
             'rxbinding'          : '2.1.0',
@@ -32,7 +32,9 @@ buildscript {
                     'extensions': '1.1.0',
                     'room'      : '1.0.0'
             ],
-            'glide'              : '3.7.0'
+            'glide'              : '3.7.0',
+            'stetho'             : '1.5.0',
+
 
     ]
 
@@ -80,7 +82,8 @@ buildscript {
                             'constraintLayout': 'com.android.support.constraint:constraint-layout:1.1.0-beta5',
                             'appCompat'       : "com.android.support:appcompat-v7:${versions.supportLibrary}",
                             'coreUi'          : "com.android.support:support-core-ui:${versions.supportLibrary}",
-                            'fragment'        : "com.android.support:support-fragment:${versions.supportLibrary}"
+                            'fragment'        : "com.android.support:support-fragment:${versions.supportLibrary}",
+                            'selection'       : "com.android.support:recyclerview-selection:${versions.supportLibrary}"
                     ],
                     'x'      : [
                             'coreKtx': 'androidx.core:core-ktx:0.2',
@@ -129,8 +132,8 @@ buildscript {
             'groupie.kotlin': "com.xwray:groupie-kotlin-android-extensions:2.0.3",
             // use epoxy instead as it's battle tested.
 
-            'stetho'        : "com.facebook.stetho:stetho:1.5.0",
-            'stetho.okhttp' : "com.facebook.stetho:stetho-okhttp3:1.5.0",
+            'stetho'        : "com.facebook.stetho:stetho:${versions.stetho}",
+            'stetho.okhttp' : "com.facebook.stetho:stetho-okhttp3:${versions.stetho}",
             'glide'         : "com.github.bumptech.glide:glide:${versions.glide}",
             'okio'          : 'com.squareup.okio:okio:1.13.0',
             'moshi'         : 'com.squareup.moshi:moshi:1.5.0',
@@ -170,15 +173,15 @@ allprojects {
     }
 
     // Force all of the primary support libraries to use the same version.
-    configurations.all {
-        resolutionStrategy {
-            eachDependency { details ->
-                if (details.requested.group == 'com.android.support') {
-                    details.useVersion versions.supportLibrary
-                }
-            }
-        }
-    }
+//    configurations.all {
+//        resolutionStrategy {
+//            eachDependency { details ->
+//                if (details.requested.group == 'com.android.support') {
+//                    details.useVersion versions.supportLibrary
+//                }
+//            }
+//        }
+//    }
 }
 
 task clean(type: Delete) {

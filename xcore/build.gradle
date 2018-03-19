@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion buildConfig.compileSdk
+    compileSdkVersion 'android-P'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -69,6 +69,7 @@ dependencies {
     implementation deps.android.support.coreUtils
     implementation deps.android.support.coreUi
     implementation deps.android.support.design
+    implementation deps.android.support.selection
 
 
     debugImplementation deps.okhttp.logging

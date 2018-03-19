@@ -19,7 +19,7 @@ fun Socket.createTradesStream(): Flowable<CoinMessage> {
     return Flowable.create<CoinMessage>({ sub ->
         on("trades", {
             val message = adapter.fromJson(it[0].toString())
-            sub.onNext(message)
+            message?.let { it1 -> sub.onNext(it1) }
         })
     }, BackpressureStrategy.BUFFER)
 }
