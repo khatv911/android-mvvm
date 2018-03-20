@@ -149,8 +149,9 @@ buildscript {
             'bugsnag'       : 'com.bugsnag:bugsnag-android:4.2.2',
             'alerter'       : 'com.tapadoo.android:alerter:2.0.4',
             'leakcanary'    :
-                    ['debug'  : 'com.squareup.leakcanary:leakcanary-android:1.5.4',
-                     'release': 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+                    [
+                            'debug'  : 'com.squareup.leakcanary:leakcanary-android:1.5.4',
+                            'release': 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
                     ]
     ]
 

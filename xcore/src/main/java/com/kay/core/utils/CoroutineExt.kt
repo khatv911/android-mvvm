@@ -1,5 +1,6 @@
 package com.kay.core.utils
 
+import com.kay.core.BuildConfig
 import kotlinx.coroutines.experimental.CoroutineExceptionHandler
 import kotlin.coroutines.experimental.CoroutineContext
 
@@ -9,15 +10,21 @@ import kotlin.coroutines.experimental.CoroutineContext
  * Email: khatv911@gmail.com
  */
 
-
+/**
+ * forward the exception
+ */
 val exceptionThrower: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
     throw throwable
 }
 
+/**
+ * Take
+ */
 fun BaseRepository.withRetryExceptionHandler(_retry: Retry): CoroutineContext {
     return CoroutineExceptionHandler { _, e ->
-        e.printStackTrace()
-        requestStateEvent.value = RequestState.ERROR(e)
-        retryEvent.value = _retry
+        if (BuildConfig.DEBUG) e.printStackTrace()
+        // ensure to work on the main thread.
+        requestStateEvent.postValue(RequestState.ERROR(e))
+        retryEvent.postValue(_retry)
     }
 }
