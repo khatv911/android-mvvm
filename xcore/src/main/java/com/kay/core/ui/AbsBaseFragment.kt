@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.kay.core.R
-import com.kay.core.error.DefaultResolution
-import com.kay.core.error.DefaultUiResolver
-import com.kay.core.error.Resolution
-import com.kay.core.error.UiResolver
+import com.kay.core.resolver.Resolution
+import com.kay.core.utils.CanSetTitle
 import com.kay.core.utils.LoadingState
+import com.kay.core.utils.LoadingState.Companion.NORMAL
 import com.kay.core.viewmodel.LifecycleOwnerExt
 import com.kay.core.viewmodel.ViewModelFactory
 import dagger.android.support.DaggerFragment
@@ -37,7 +36,7 @@ abstract class AbsBaseFragment : DaggerFragment(), LifecycleOwnerExt {
     /**
      * Override this method to provide proper resolution
      */
-     abstract fun getResolution(): Resolution
+    abstract fun getResolution(): Resolution
 
     /**
      * The ViewModelFactory
@@ -76,8 +75,8 @@ abstract class AbsBaseFragment : DaggerFragment(), LifecycleOwnerExt {
     }
 
 
-    override fun onLoadingStateChanged(loadingState: LoadingState?) = when (loadingState) {
-        LoadingState.NORMAL -> mLoadingView.show()
+    override fun onLoadingStateChanged(@LoadingState.Value loadingState: Int) = when (loadingState) {
+        NORMAL -> mLoadingView.show()
         else -> mLoadingView.hide()
     }
 

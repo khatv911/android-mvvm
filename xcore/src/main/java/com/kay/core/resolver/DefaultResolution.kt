@@ -1,4 +1,4 @@
-package com.kay.core.error
+package com.kay.core.resolver
 
 import com.kay.core.R
 
@@ -14,7 +14,7 @@ class DefaultResolution constructor(private val resolvers: MutableList<UiResolve
      * add more resolver on the fly
      */
     fun addResolver(uiResolver: UiResolver) {
-        resolvers.add(uiResolver)
+        resolvers += uiResolver
     }
 
     override fun onGenericException(throwable: Throwable) {

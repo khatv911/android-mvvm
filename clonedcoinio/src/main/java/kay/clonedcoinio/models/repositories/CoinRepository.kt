@@ -1,8 +1,6 @@
 package kay.clonedcoinio.models.repositories
 
-import com.kay.core.error.exceptionThrower
-import com.kay.core.livedata.BaseRepository
-import com.kay.core.network.RequestState
+import com.kay.core.utils.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
@@ -81,7 +79,7 @@ class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : Ba
             val networkResult = webService.getCoins().awaitResult()
             val coins = networkResult.getOrThrow()
             async(CommonPool + exceptionThrower) { coinDao.refresh(coins) }.await()
-            state.value = RequestState.DONE()
+            requestStateEvent.value = RequestState.DONE()
         }
     }
 }

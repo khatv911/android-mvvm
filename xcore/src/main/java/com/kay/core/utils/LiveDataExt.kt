@@ -1,4 +1,4 @@
-package com.kay.core.extension
+package com.kay.core.utils
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
@@ -13,5 +13,5 @@ import android.arch.lifecycle.Transformations
 fun <X, Y> LiveData<X>.map(func: (X) -> Y): LiveData<Y> =
         Transformations.map(this, func)
 
-fun <X, Y> LiveData<X>.smap(func: (X) -> LiveData<Y>): LiveData<Y> =
+fun <X, Y> LiveData<X>.switchMap(func: (X) -> LiveData<Y>): LiveData<Y> =
         Transformations.switchMap(this, func)

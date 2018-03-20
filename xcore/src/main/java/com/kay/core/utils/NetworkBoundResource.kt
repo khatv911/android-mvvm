@@ -1,8 +1,7 @@
-package com.kay.core.livedata
+package com.kay.core.utils
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
-import com.kay.core.error.exceptionThrower
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async

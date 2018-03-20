@@ -3,10 +3,10 @@ package com.kay.core.viewmodel
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
-import com.kay.core.livedata.SingleLiveEvent
-import com.kay.core.network.RequestState
 import com.kay.core.utils.LoadingState
+import com.kay.core.utils.RequestState
 import com.kay.core.utils.Retry
+import com.kay.core.utils.SingleLiveEvent
 
 
 /**
@@ -31,7 +31,7 @@ abstract class AbsBaseViewModel : ViewModel() {
      * tell view to show loading or not
      *
      */
-    private val mLoadingEvent = SingleLiveEvent<LoadingState?>()
+    private val mLoadingEvent = SingleLiveEvent<@LoadingState.Value Int>()
 
     /**
      * tell view about error
@@ -87,10 +87,10 @@ abstract class AbsBaseViewModel : ViewModel() {
 
     fun setup(lifecycleOwnerExt: LifecycleOwnerExt) {
         /**
-         * Take care of loading state
+         * Take care of loading requestStateEvent
          */
-        mLoadingEvent.observe(lifecycleOwnerExt, Observer {
-            lifecycleOwnerExt.onLoadingStateChanged(it)
+        mLoadingEvent.observe(lifecycleOwnerExt, Observer { loading ->
+            loading?.let { lifecycleOwnerExt.onLoadingStateChanged(it) }
         })
         /**
          * Take care of error

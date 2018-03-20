@@ -1,4 +1,4 @@
-package com.kay.core.error
+package com.kay.core.resolver
 
 import android.support.v4.app.Fragment
 import java.lang.ref.WeakReference

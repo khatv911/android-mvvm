@@ -11,9 +11,9 @@ import com.kay.core.utils.LoadingState
 
 interface LifecycleOwnerExt : LifecycleOwner {
     /**
-     * loading state change
+     * loading requestStateEvent change
      */
-    fun onLoadingStateChanged(loadingState: LoadingState? = LoadingState.NORMAL)
+    fun onLoadingStateChanged(@LoadingState.Value loadingState: Int = LoadingState.NORMAL)
 
     /**
      *

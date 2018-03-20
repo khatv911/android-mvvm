@@ -1,4 +1,4 @@
-package com.kay.core.error
+package com.kay.core.resolver
 
 import com.kay.core.R
 
@@ -11,16 +11,16 @@ import com.kay.core.R
 interface UiResolver {
 
     /**
-     * show error message with retry option
+     * show error message with retryEvent option
      * @message: the error message to show
-     * @retryOption: 1st param to indicate should we show the retry (otherwise show dismiss), 2nd param is the action string
+     * @retryOption: 1st param to indicate should we show the retryEvent (otherwise show dismiss), 2nd param is the action string
      */
     fun resolveErrorMessage(message: String, retryOption: Pair<Boolean, Int?> = (false to R.string.dismiss))
 
     /**
-     * show error message with retry option
+     * show error message with retryEvent option
      * @message: the error message to show
-     * @retryOption: 1st param to indicate should we show the retry (otherwise show dismiss), 2nd param is the action string
+     * @retryOption: 1st param to indicate should we show the retryEvent (otherwise show dismiss), 2nd param is the action string
      */
     fun resolveErrorMessage(resource: Int, retryOption: Pair<Boolean, Int?> = (false to R.string.dismiss))
 

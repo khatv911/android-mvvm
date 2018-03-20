@@ -3,8 +3,8 @@ package com.kay.core.di
 import android.app.Application
 import android.content.SharedPreferences
 import com.kay.core.enviroments.inject
-import com.kay.core.extension.PrefHelper
-import com.kay.core.network.AccessTokenInterceptor
+import com.kay.core.utils.AccessTokenInterceptor
+import com.kay.core.utils.PrefHelper
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -24,7 +24,7 @@ class CoreModule {
 
     @Provides
     @Singleton
-    fun provideSharedPrefs(application: Application): SharedPreferences{
+    fun provideSharedPrefs(application: Application): SharedPreferences {
         return PrefHelper.defaultPrefs(application)
     }
 
@@ -35,8 +35,6 @@ class CoreModule {
         val cacheSize = 10L * 1024 * 1024 // 10MB of network cache
         return Cache(application.cacheDir, cacheSize)
     }
-
-
 
 
     @Provides

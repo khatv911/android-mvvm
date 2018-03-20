@@ -1,4 +1,4 @@
-package com.kay.core.extension
+package com.kay.core.utils
 
 import android.content.Context
 import android.content.SharedPreferences

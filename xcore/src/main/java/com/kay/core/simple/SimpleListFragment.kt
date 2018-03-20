@@ -16,7 +16,8 @@ import timber.log.Timber
 abstract class SimpleListFragment<T, out VM : SimpleViewModel<T>> : SimpleFragment<T, VM>() {
 
 
-    private var mLoadingState: LoadingState = LoadingState.NONE
+    @LoadingState.Value
+    private var mLoadingState: Int = LoadingState.NONE
 
     /**
      *
@@ -47,7 +48,7 @@ abstract class SimpleListFragment<T, out VM : SimpleViewModel<T>> : SimpleFragme
     }
 
 
-    override fun onLoadingStateChanged(loadingState: LoadingState?) {
+    override fun onLoadingStateChanged(@LoadingState.Value loadingState: Int) {
         if (loadingState == LoadingState.NONE) {
             when (mLoadingState) {
                 LoadingState.NONE -> {
@@ -69,7 +70,7 @@ abstract class SimpleListFragment<T, out VM : SimpleViewModel<T>> : SimpleFragme
 
         }
 
-        mLoadingState = loadingState!!
+        mLoadingState = loadingState
     }
 
     protected open fun renderLoading(show: Boolean) {
@@ -77,7 +78,7 @@ abstract class SimpleListFragment<T, out VM : SimpleViewModel<T>> : SimpleFragme
     }
 
     /**
-     * render load more state.
+     * render load more requestStateEvent.
      */
     protected open fun renderLoadingMore(boolean: Boolean) {}
 

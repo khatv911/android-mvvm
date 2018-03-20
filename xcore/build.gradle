@@ -19,7 +19,6 @@ android {
         versionName buildConfig.version.name
 
         // proguard
-        // progaurds
         proguardFiles getDefaultProguardFile('proguard-android.txt'),
                 'proguard-rules.pro',
                 '../proguards/proguard-calligraphy-2.1.0.pro',
@@ -85,10 +84,16 @@ dependencies {
     implementation deps.android.support.recyclerView
     implementation deps.android.support.coreUi
 
+    //annotation
+    implementation deps.android.support.annotations
+
 
     debugImplementation deps.okhttp.logging
     debugImplementation deps.stetho
     debugImplementation deps['stetho.okhttp']
+
+    debugImplementation deps.leakcanary.debug
+    releaseImplementation deps.leakcanary.release
 
 }
 

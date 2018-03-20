@@ -19,11 +19,11 @@ class LoginViewModel @Inject constructor(private val repo: LoginRepository) : Ab
 
 
     init {
-        mStateEvent.addSource(repo.state, {
+        mStateEvent.addSource(repo.requestStateEvent, {
             it?.let { extractState(it) }
         })
 
-        mRetryEvent.addSource(repo.retry, {
+        mRetryEvent.addSource(repo.retryEvent, {
             mRetryEvent.value = it
         })
     }

@@ -1,9 +1,10 @@
 package kay.clonedcoinio.models.repositories
 
 import android.content.SharedPreferences
-import com.kay.core.extension.PrefHelper.set
-import com.kay.core.livedata.BaseRepository
-import com.kay.core.network.RequestState
+import com.kay.core.utils.PrefHelper.set
+import com.kay.core.utils.BaseRepository
+import com.kay.core.utils.RequestState
+import com.kay.core.utils.withRetryExceptionHandler
 import com.squareup.moshi.Json
 import kay.clonedcoinio.models.entities.FcsResponse
 import kotlinx.coroutines.experimental.android.UI
@@ -58,7 +59,7 @@ class LoginRepository @Inject constructor(private val api: Retrofit, private val
         // save to prefs
         preferences["access_token"] = result.data?.response?.accessToken ?: ""
 
-        state.value = RequestState.SUCCESS("Login Success")
+        requestStateEvent.value = RequestState.SUCCESS("Login Success")
     }
 
 

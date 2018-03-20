@@ -1,4 +1,4 @@
-package com.kay.core.extension
+package com.kay.core.utils
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
@@ -14,9 +14,7 @@ import com.kay.core.viewmodel.ViewModelFactory
 
 
 @Suppress("UNCHECKED_CAST")
-fun <T : ViewModel> ViewModelFactory.inject(fragment: Fragment,_class: Class<T>): T
-        = ViewModelProviders.of(fragment,this ).get(_class)
+fun <T : ViewModel> ViewModelFactory.inject(fragment: Fragment, _class: Class<T>): T = ViewModelProviders.of(fragment, this).get(_class)
 
 @Suppress("UNCHECKED_CAST")
-fun <T : ViewModel> ViewModelFactory.inject(fragmentActivity: FragmentActivity,_class: Class<T>): T
-        = ViewModelProviders.of(fragmentActivity, this).get(_class)
+fun <T : ViewModel> ViewModelFactory.inject(fragmentActivity: FragmentActivity, _class: Class<T>): T = ViewModelProviders.of(fragmentActivity, this).get(_class)

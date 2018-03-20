@@ -1,4 +1,4 @@
-package com.kay.core.extension
+package com.kay.core.utils
 
 import android.support.annotation.AnimRes
 import android.support.v4.app.Fragment
@@ -22,7 +22,7 @@ fun FragmentTransaction.extends(tag: String,
                                 shouldAddToBackStack: Boolean = true,
                                 @AnimRes enterAnimation: Int = android.R.anim.fade_in,
                                 @AnimRes exitAnimation: Int = android.R.anim.fade_out,
-                                @AnimRes popEnterAnimation: Int =android.R.anim.fade_in,
+                                @AnimRes popEnterAnimation: Int = android.R.anim.fade_in,
                                 @AnimRes popExitAnimation: Int = android.R.anim.fade_out): FragmentTransaction =
         addToBackStack(if (shouldAddToBackStack) tag else null).setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation)
 

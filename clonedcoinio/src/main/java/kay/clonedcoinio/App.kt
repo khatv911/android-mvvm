@@ -35,9 +35,11 @@ class App : dagger.android.support.DaggerApplication() {
     override fun onCreate() {
         super.onCreate()
 
+        injectEnvSettings()
+
         Timber.plant(Timber.DebugTree())
 
-        injectEnvSettings()
+
 
     }
 }

@@ -1,4 +1,4 @@
-package com.kay.core.error
+package com.kay.core.resolver
 
 import kotlinx.coroutines.experimental.CoroutineExceptionHandler
 import retrofit2.HttpException
@@ -43,9 +43,4 @@ interface ConnectivityResolution {
 interface Resolution : HttpResolution, GenericResolution, ConnectivityResolution {
     fun resolve(throwable: Throwable)
     fun success(message: String?)
-}
-
-
-val exceptionThrower: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
-    throw throwable
 }

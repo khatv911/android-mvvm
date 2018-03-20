@@ -2,7 +2,7 @@ package kay.clonedcoinio.modules.login
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.kay.core.ui.CanSetTitle
+import com.kay.core.utils.CanSetTitle
 import kay.clonedcoinio.R
 import timber.log.Timber
 

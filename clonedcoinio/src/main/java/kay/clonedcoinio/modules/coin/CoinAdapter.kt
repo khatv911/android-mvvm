@@ -8,7 +8,7 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.kay.core.extension.inflate
+import com.kay.core.utils.inflate
 import com.kay.core.ui.DiffingAdapter
 import kay.clonedcoinio.R
 import kay.clonedcoinio.models.entities.Coin

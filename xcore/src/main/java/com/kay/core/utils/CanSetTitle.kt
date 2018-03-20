@@ -1,4 +1,4 @@
-package com.kay.core.ui
+package com.kay.core.utils
 
 /**
  * Created by Kay Tran on 14/3/18.

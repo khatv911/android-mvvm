@@ -1,4 +1,4 @@
-package com.kay.core.extension
+package com.kay.core.utils
 
 import android.support.annotation.LayoutRes
 import android.view.LayoutInflater

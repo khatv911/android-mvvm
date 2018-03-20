@@ -1,7 +1,7 @@
 package kay.clonedcoinio.modules.coin
 
 import android.arch.lifecycle.MutableLiveData
-import com.kay.core.extension.smap
+import com.kay.core.utils.switchMap
 import com.kay.core.simple.SimpleViewModel
 import kay.clonedcoinio.models.entities.Coin
 import kay.clonedcoinio.models.repositories.CoinRepository
@@ -35,16 +35,16 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
     }
 
     init {
-        mLiveData = trigger.smap { repository.getAllCoins() }
+        mLiveData = trigger.switchMap { repository.getAllCoins() }
 
         mStateEvent.apply {
-            addSource(repository.state, {
+            addSource(repository.requestStateEvent, {
                 it?.let { extractState(it) }
             })
         }
 
         mRetryEvent.apply {
-            addSource(repository.retry, {
+            addSource(repository.retryEvent, {
                 value = it
             })
         }

@@ -2,8 +2,7 @@ package kay.clonedcoinio.resolver
 
 import android.graphics.Color
 import android.support.v4.app.Fragment
-import com.kay.core.error.DefaultUiResolver
-import com.kay.core.error.UiResolver
+import com.kay.core.resolver.DefaultUiResolver
 import com.kay.core.utils.Retriable
 import com.tapadoo.alerter.Alerter
 
@@ -19,7 +18,7 @@ class FcsUiResolver(fragment: Fragment) : DefaultUiResolver(fragment) {
         fragment?.let {
             Alerter.create(it.requireActivity())
                     .setTitle(message)
-                    .setText("Click to retry!")
+                    .setText("Click to retryEvent!")
                     .setDuration(2000L)
                     .setBackgroundColorInt(Color.RED)
                     .setOnClickListener {

@@ -4,12 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
-import com.kay.core.error.DefaultResolution
-import com.kay.core.error.DefaultUiResolver
-import com.kay.core.error.Resolution
-import com.kay.core.extension.inject
+import com.kay.core.resolver.DefaultResolution
+import com.kay.core.resolver.DefaultUiResolver
+import com.kay.core.resolver.Resolution
 import com.kay.core.ui.AbsBaseFragment
 import com.kay.core.utils.Retriable
+import com.kay.core.utils.inject
 import kay.clonedcoinio.R
 import kay.clonedcoinio.modules.coin.CoinActivity
 import kay.clonedcoinio.resolver.FcsUiResolver
@@ -61,6 +61,7 @@ class LoginFragment : AbsBaseFragment(), Retriable {
                 launch(UI) {
                     delay(3, TimeUnit.SECONDS)
                     startActivity(Intent(it.context, CoinActivity::class.java))
+                    it.activity?.finish()
                 }
             }
         }

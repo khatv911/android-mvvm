@@ -7,9 +7,9 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.kay.core.error.DefaultResolution
-import com.kay.core.error.Resolution
-import com.kay.core.extension.inject
+import com.kay.core.resolver.DefaultResolution
+import com.kay.core.resolver.Resolution
+import com.kay.core.utils.inject
 import com.kay.core.simple.SimpleListFragment
 import com.kay.core.utils.ItemHandler
 import com.kay.core.utils.Retriable

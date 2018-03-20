@@ -72,25 +72,25 @@ buildscript {
                                     'extensions': "android.arch.lifecycle:extensions:${versions.arch.extensions}",
                                     'compiler'  : "android.arch.lifecycle:compiler:${versions.arch.extensions}"
                             ],
-                            'paging':[
-                                    'runtime':"android.arch.paging:runtime:${versions.arch.paging}"
+                            'paging'   : [
+                                    'runtime': "android.arch.paging:runtime:${versions.arch.paging}"
                             ]
                     ],
                     //TODO: support
                     'support': [
-                            'annotations'     : "com.android.support:support-annotations:${versions.supportLibrary}",
-                            'coreUtils'       : "com.android.support:support-core-utils:${versions.supportLibrary}",
-                            'recyclerView'    : "com.android.support:recyclerview-v7:${versions.supportLibrary}",
-                            'customTabs'      : "com.android.support:customtabs:${versions.supportLibrary}",
-                            'design'          : "com.android.support:design:${versions.supportLibrary}",
-                            'constraintLayout': 'com.android.support.constraint:constraint-layout:1.1.0-beta5',
-                            'appCompat'       : "com.android.support:appcompat-v7:${versions.supportLibrary}",
-                            'coreUi'          : "com.android.support:support-core-ui:${versions.supportLibrary}",
-                            'fragment'        : "com.android.support:support-fragment:${versions.supportLibrary}",
-                            'selection'       : "com.android.support:recyclerview-selection:${versions.supportLibrary}",
-                            'viewpager'       : "com.android.support:viewpager:${versions.supportLibrary}",
+                            'annotations'      : "com.android.support:support-annotations:${versions.supportLibrary}",
+                            'coreUtils'        : "com.android.support:support-core-utils:${versions.supportLibrary}",
+                            'recyclerView'     : "com.android.support:recyclerview-v7:${versions.supportLibrary}",
+                            'customTabs'       : "com.android.support:customtabs:${versions.supportLibrary}",
+                            'design'           : "com.android.support:design:${versions.supportLibrary}",
+                            'constraintLayout' : 'com.android.support.constraint:constraint-layout:1.1.0-beta5',
+                            'appCompat'        : "com.android.support:appcompat-v7:${versions.supportLibrary}",
+                            'coreUi'           : "com.android.support:support-core-ui:${versions.supportLibrary}",
+                            'fragment'         : "com.android.support:support-fragment:${versions.supportLibrary}",
+                            'selection'        : "com.android.support:recyclerview-selection:${versions.supportLibrary}",
+                            'viewpager'        : "com.android.support:viewpager:${versions.supportLibrary}",
                             'coordinatorlayout': "com.android.support:coordinatorlayout:${versions.supportLibrary}",
-                            'drawerlayout': "com.android.support:drawerlayout:${versions.supportLibrary}"
+                            'drawerlayout'     : "com.android.support:drawerlayout:${versions.supportLibrary}"
                     ],
                     'x'      : [
                             'coreKtx': 'androidx.core:core-ktx:0.2',
@@ -147,22 +147,12 @@ buildscript {
             'timber'        : 'com.jakewharton.timber:timber:4.6.0',
             'junit'         : 'junit:junit:4.12',
             'bugsnag'       : 'com.bugsnag:bugsnag-android:4.2.2',
-            'alerter'       : 'com.tapadoo.android:alerter:2.0.4'
+            'alerter'       : 'com.tapadoo.android:alerter:2.0.4',
+            'leakcanary'    :
+                    ['debug'  : 'com.squareup.leakcanary:leakcanary-android:1.5.4',
+                     'release': 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+                    ]
     ]
-
-
-//    ext.libsProguardRules = [ 'proguard-rules.pro',
-//                          '../proguards/proguard-calligraphy-2.1.0.pro',
-//                          '../proguards/proguard-crashlytics-2.pro',
-//                          '../proguards/proguard-glide.pro',
-//                          '../proguards/proguard-google-play-services.pro',
-//                          '../proguards/proguard-rx-java.pro',
-//                          '../proguards/proguard-square-okio.pro',
-//                          '../proguards/proguard-square-okhttp3.pro',
-//                          '../proguards/proguard-square-retrofit2.pro',
-//                          '../proguards/proguard-dagger2.pro',
-//                          '../proguards/proguard-moshi.pro']
-
 
 
     repositories {

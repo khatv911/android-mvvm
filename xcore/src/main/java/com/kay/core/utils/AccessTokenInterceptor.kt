@@ -1,4 +1,4 @@
-package com.kay.core.network
+package com.kay.core.utils
 
 /**
  * Created by Kay Tran on 2/2/18.
@@ -9,7 +9,7 @@ import android.content.SharedPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AccessTokenInterceptor(val pref: SharedPreferences) : Interceptor {
+class AccessTokenInterceptor(private val pref: SharedPreferences) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()

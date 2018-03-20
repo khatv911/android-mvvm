@@ -1,4 +1,4 @@
-package com.kay.core.livedata
+package com.kay.core.utils
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
