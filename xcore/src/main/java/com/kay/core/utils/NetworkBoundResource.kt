@@ -56,7 +56,7 @@ abstract class NetworkBoundResource<PersistedData, NetworkResponse : Any> {
     /**
      * You may want to override this function in case you you have to call multiple requests
      * If so, the NetworkResponse should be a wrapper of all responses.
-     * and {@link #createCall} can be empty
+     * and [createCall] can be empty
      */
     protected open fun fetchFromNetwork(dbSource: LiveData<PersistedData?>) {
         result.addSource(dbSource, { setValue(it) })

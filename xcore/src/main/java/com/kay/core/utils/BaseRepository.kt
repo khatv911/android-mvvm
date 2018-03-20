@@ -8,6 +8,11 @@ import retrofit2.Call
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
+
+/**
+ * @property requestStateEvent network response status for a specific task,
+ * @property retryEvent hold the latest [Retry] (that may points to a function)
+ */
 abstract class BaseRepository {
     val requestStateEvent = SingleLiveEvent<RequestState>()
     val retryEvent = SingleLiveEvent<Retry>()
