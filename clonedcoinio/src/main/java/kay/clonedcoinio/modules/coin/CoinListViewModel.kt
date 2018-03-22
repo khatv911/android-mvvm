@@ -2,7 +2,7 @@ package kay.clonedcoinio.modules.coin
 
 import android.arch.lifecycle.MutableLiveData
 import com.kay.core.utils.switchMap
-import com.kay.core.simple.SimpleViewModel
+import com.kay.core.simple.SimpleDataModel
 import kay.clonedcoinio.models.entities.Coin
 import kay.clonedcoinio.models.repositories.CoinRepository
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import javax.inject.Inject
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinListViewModel @Inject constructor(private val repository: CoinRepository) : SimpleViewModel<List<Coin>>() {
+class CoinListViewModel @Inject constructor(private val repository: CoinRepository) : SimpleDataModel<List<Coin>>() {
 
     private val trigger = MutableLiveData<Boolean>()
 

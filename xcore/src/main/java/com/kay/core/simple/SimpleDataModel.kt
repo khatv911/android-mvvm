@@ -9,6 +9,6 @@ import com.kay.core.viewmodel.AbsBaseViewModel
  * Profile : https://github.com/khatv911
  * Email   : khatv911@gmail.com
  */
-abstract class SimpleViewModel<T> : AbsBaseViewModel() {
+abstract class SimpleDataModel<T> : AbsBaseViewModel() {
     lateinit var mLiveData: LiveData<T?>
 }

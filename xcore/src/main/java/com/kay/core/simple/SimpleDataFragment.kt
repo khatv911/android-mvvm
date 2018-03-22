@@ -10,7 +10,7 @@ import com.kay.core.viewmodel.plusAssign
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-abstract class SimpleDataFragment<T, VM : SimpleViewModel<T>> : SimpleFragment<VM>() {
+abstract class SimpleDataFragment<T, VM : SimpleDataModel<T>> : SimpleFragment<VM>() {
 
     abstract fun onDataChanged(t: T)
 

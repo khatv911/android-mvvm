@@ -12,7 +12,6 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val repo: LoginRepository) : AbsBaseViewModel() {
 
 
-
     fun login(usr: String, pwd: String) {
         setLoading()
         repo.login(usr to pwd)
@@ -25,13 +24,13 @@ class LoginViewModel @Inject constructor(private val repo: LoginRepository) : Ab
         })
 
         mRetryEvent.addSource(repo.retryEvent, {
-            mRetryEvent.value = it
+            mRetry = it
         })
     }
 
     fun retry() {
         setLoading()
-        mRetryEvent.value?.invoke()
+        mRetry?.invoke()
     }
 
 

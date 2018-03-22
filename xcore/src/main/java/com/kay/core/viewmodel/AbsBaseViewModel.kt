@@ -25,6 +25,9 @@ abstract class AbsBaseViewModel : ViewModel() {
      */
     protected val mRetryEvent = MediatorLiveData<Retry>()
 
+
+    protected var mRetry: Retry = null
+
     /**
      * tell view to show loading or not
      *
@@ -105,6 +108,7 @@ abstract class AbsBaseViewModel : ViewModel() {
     }
 
     override fun onCleared() {
+        mRetry = null
         liveDataSet.clear()
         super.onCleared()
     }
