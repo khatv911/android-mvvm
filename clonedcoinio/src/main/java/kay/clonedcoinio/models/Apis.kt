@@ -11,7 +11,7 @@ import retrofit2.http.GET
  */
 interface Apis {
 
-    @GET("/front")
+    @GET("http://coincap.io/front")
     fun getCoins(): Call<List<Coin>>
 
 

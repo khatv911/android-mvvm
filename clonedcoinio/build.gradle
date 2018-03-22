@@ -18,7 +18,6 @@ android {
         versionCode buildConfig.version.code
         versionName buildConfig.version.name
 
-
         // room schema
         javaCompileOptions {
             annotationProcessorOptions {
@@ -35,7 +34,6 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-
         // progaurds
         proguardFiles getDefaultProguardFile('proguard-android.txt'),
                 'proguard-rules.pro',
@@ -49,8 +47,6 @@ android {
                 '../proguards/proguard-square-retrofit2.pro',
                 '../proguards/proguard-dagger2.pro',
                 '../proguards/proguard-moshi.pro'
-
-
 
 
     }
@@ -79,14 +75,12 @@ dependencies {
     implementation deps.kotlin.coroutines.jdk
     implementation deps.kotlin.coroutines.android
 
-
     //dagger
     implementation deps.dagger.runtime
     kapt deps.dagger.compiler
     implementation deps.dagger.android.runtime
     implementation deps.dagger.android.support
     kapt deps.dagger.android.proccesor
-
 
     //Arch
     implementation deps.android.arch.lifecycle.extensions
@@ -95,6 +89,8 @@ dependencies {
     kapt deps.android.arch.room.compiler
     implementation deps.android.arch.paging.runtime
 
+    implementation deps.moshi
+    implementation deps['moshi.kotlin']
 
     implementation deps.okhttp.client
     implementation deps.retrofit.client
