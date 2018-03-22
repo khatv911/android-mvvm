@@ -13,7 +13,7 @@ import timber.log.Timber
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-abstract class SimpleListFragment<T, out VM : SimpleViewModel<T>> : SimpleFragment<T, VM>() {
+abstract class SimpleRecyclerViewFragment<T, VM : SimpleViewModel<T>> : SimpleDataFragment<T, VM>() {
 
 
     @LoadingState.Value

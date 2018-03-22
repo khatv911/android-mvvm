@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.view.postDelayed
 import com.kay.core.R
 import com.kay.core.resolver.Resolution
 import com.kay.core.utils.CanSetTitle
@@ -22,7 +23,6 @@ import javax.inject.Inject
  * Email: khatv911@gmail.com
  */
 abstract class AbsBaseFragment : DaggerFragment(), LifecycleOwnerExt {
-
 
     /**
      * provide a resolution lazily.
@@ -75,9 +75,17 @@ abstract class AbsBaseFragment : DaggerFragment(), LifecycleOwnerExt {
     }
 
 
-    override fun onLoadingStateChanged(@LoadingState.Value loadingState: Int) = when (loadingState) {
-        NORMAL -> mLoadingView.show()
-        else -> mLoadingView.hide()
+    override fun onLoadingStateChanged(@LoadingState.Value loadingState: Int) {
+        when (loadingState) {
+            // have to use postDelayed to show the loading,
+            // this will cause temporary leak.
+            NORMAL -> {
+                view?.postDelayed(100, { mLoadingView.show() })
+            }
+            else -> {
+                view?.postDelayed(100, { mLoadingView.hide() })
+            }
+        }
     }
 
 
@@ -120,4 +128,5 @@ abstract class AbsBaseFragment : DaggerFragment(), LifecycleOwnerExt {
             (activity as CanSetTitle).setTitle(getActionBarTitle())
         }
     }
+
 }

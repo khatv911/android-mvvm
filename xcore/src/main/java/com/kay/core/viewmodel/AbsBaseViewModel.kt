@@ -1,8 +1,6 @@
 package com.kay.core.viewmodel
 
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.*
 import com.kay.core.utils.LoadingState
 import com.kay.core.utils.RequestState
 import com.kay.core.utils.Retry
@@ -40,6 +38,16 @@ abstract class AbsBaseViewModel : ViewModel() {
 
 
     private val mSuccessEvent = SingleLiveEvent<String>()
+
+
+    private val liveDataList = mutableSetOf<LiveData<*>>().apply {
+        this += mLoadingEvent
+        this += mErrorEvent
+        this += mSuccessEvent
+        // not quite necessary
+        this += mStateEvent
+        this += mRetryEvent
+    }
 
 
     protected fun setLoading() {
@@ -85,6 +93,17 @@ abstract class AbsBaseViewModel : ViewModel() {
         mSuccessEvent.value = message
     }
 
+    /**
+     * Keep track of the livedata
+     */
+    internal fun manageLiveData(liveData: LiveData<*>) {
+        liveDataList += liveData
+    }
+
+    fun tearDown(lifecycleOwner: LifecycleOwner) {
+        liveDataList.forEach { it.removeObservers(lifecycleOwner) }
+    }
+
     fun setup(lifecycleOwnerExt: LifecycleOwnerExt) {
         /**
          * Take care of loading requestStateEvent
@@ -119,3 +138,9 @@ abstract class AbsBaseViewModel : ViewModel() {
     }
 
 }
+
+
+operator fun <T> AbsBaseViewModel.plusAssign(liveData: LiveData<T>) {
+    this.manageLiveData(liveData)
+}
+

@@ -7,7 +7,7 @@ import android.view.View
 import com.kay.core.resolver.DefaultResolution
 import com.kay.core.resolver.DefaultUiResolver
 import com.kay.core.resolver.Resolution
-import com.kay.core.ui.AbsBaseFragment
+import com.kay.core.simple.SimpleFragment
 import com.kay.core.utils.Retriable
 import com.kay.core.utils.inject
 import kay.clonedcoinio.R
@@ -27,14 +27,9 @@ import java.util.concurrent.TimeUnit
 /**
  * Login Screen doesn't need to display any data, all it cares is login response(success or failed)
  */
-class LoginFragment : AbsBaseFragment(), Retriable {
+class LoginFragment : SimpleFragment<LoginViewModel>(), Retriable {
 
-    private val mViewModel by lazy {
-        VIEW_MODEL_FACTORY.inject(this, LoginViewModel::class.java).apply {
-            setup(this@LoginFragment)
-        }
-    }
-
+    override fun getViewModel() = VIEW_MODEL_FACTORY.inject(this, LoginViewModel::class.java)
 
     /**
      * Composition over inheritance
@@ -77,6 +72,7 @@ class LoginFragment : AbsBaseFragment(), Retriable {
     override fun getActionBarTitle(): String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
 
         btn_login.setOnClickListener {
@@ -85,4 +81,5 @@ class LoginFragment : AbsBaseFragment(), Retriable {
             mViewModel.login(userName, password)
         }
     }
+
 }

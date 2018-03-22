@@ -6,8 +6,6 @@ import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
-import kay.clonedcoinio.modules.coin.CoinListViewModel
-import kay.clonedcoinio.modules.coin.CoinListFragment
 
 /**
  * Created by Kay Tran on 2/2/18.
@@ -23,7 +21,7 @@ abstract class CoinModule {
     abstract fun bindVM(vm: CoinListViewModel): ViewModel
 
     @ContributesAndroidInjector
-    abstract fun provideMasterFragment(): CoinListFragment
+    abstract fun provideMasterFragment(): CoinRecyclerViewFragment
 
 
 }

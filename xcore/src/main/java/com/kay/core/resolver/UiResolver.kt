@@ -46,6 +46,9 @@ interface UiResolver {
     fun resolveForbidden()
 
 
+    /**
+     * show
+     */
     fun showSuccess(message: String?)
 
 

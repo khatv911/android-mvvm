@@ -10,7 +10,7 @@ import android.view.View
 import com.kay.core.resolver.DefaultResolution
 import com.kay.core.resolver.Resolution
 import com.kay.core.utils.inject
-import com.kay.core.simple.SimpleListFragment
+import com.kay.core.simple.SimpleRecyclerViewFragment
 import com.kay.core.utils.ItemHandler
 import com.kay.core.utils.Retriable
 import kay.clonedcoinio.R
@@ -22,7 +22,7 @@ import kay.clonedcoinio.resolver.FcsUiResolver
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinListFragment : SimpleListFragment<List<Coin>, CoinListViewModel>(), Retriable {
+class CoinRecyclerViewFragment : SimpleRecyclerViewFragment<List<Coin>, CoinListViewModel>(), Retriable {
 
 
     internal class CoinClickHandler : ItemHandler<Coin> {
@@ -101,7 +101,7 @@ class CoinListFragment : SimpleListFragment<List<Coin>, CoinListViewModel>(), Re
     }
 
     companion object {
-        fun newInstance() = CoinListFragment().apply {
+        fun newInstance() = CoinRecyclerViewFragment().apply {
             arguments = Bundle().apply { }
         }
     }
