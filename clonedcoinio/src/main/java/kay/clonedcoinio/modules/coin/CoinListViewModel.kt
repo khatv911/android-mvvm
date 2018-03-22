@@ -28,7 +28,7 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
     }
 
     fun retry() {
-        mRetryEvent.value?.let {
+        mRetry?.let {
             it.invoke()
             setLoading()
         }
@@ -45,7 +45,7 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
 
         mRetryEvent.apply {
             addSource(repository.retryEvent, {
-                value = it
+                mRetry = it
             })
         }
 
