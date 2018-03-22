@@ -29,7 +29,7 @@ abstract class AbsBaseViewModel : ViewModel() {
      * tell view to show loading or not
      *
      */
-    private val mLoadingEvent = SingleLiveEvent<@LoadingState.Value Int>()
+    private val mLoadingEvent = MutableLiveData<@LoadingState.Value Int>()
 
     /**
      * tell view about error
