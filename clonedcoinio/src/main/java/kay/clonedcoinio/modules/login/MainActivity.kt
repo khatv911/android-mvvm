@@ -16,15 +16,9 @@ class MainActivity : AppCompatActivity(), CanSetTitle {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        startSocket()
 
     }
 
-
-    override fun onDestroy() {
-        Timber.d("destroy act")
-        super.onDestroy()
-    }
 
     override fun setTitle(title: String?) {
 

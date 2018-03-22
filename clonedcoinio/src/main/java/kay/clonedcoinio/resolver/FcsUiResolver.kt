@@ -18,7 +18,7 @@ class FcsUiResolver(fragment: Fragment) : DefaultUiResolver(fragment) {
         fragment?.let {
             Alerter.create(it.requireActivity())
                     .setTitle(message)
-                    .setText("Click to retryEvent!")
+                    .setText("Click to retry!")
                     .setDuration(2000L)
                     .setBackgroundColorInt(Color.RED)
                     .setOnClickListener {

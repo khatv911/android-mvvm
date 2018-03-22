@@ -1,10 +1,13 @@
 package com.kay.core.di
 
 import android.app.Application
+import android.arch.lifecycle.ViewModelProvider
 import android.content.SharedPreferences
 import com.kay.core.enviroments.inject
 import com.kay.core.utils.AccessTokenInterceptor
 import com.kay.core.utils.PrefHelper
+import com.kay.core.viewmodel.ViewModelFactory
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -19,7 +22,7 @@ import javax.inject.Singleton
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-@Module
+@Module(includes = [CoreModule.VMFactory::class])
 class CoreModule {
 
     @Provides
@@ -54,4 +57,11 @@ class CoreModule {
                     .baseUrl(baseUrl)
                     .client(okHttpClient)
                     .build()
+
+    @Module
+    abstract class VMFactory {
+        @Binds
+        @Singleton
+        abstract fun viewModelProviderFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+    }
 }

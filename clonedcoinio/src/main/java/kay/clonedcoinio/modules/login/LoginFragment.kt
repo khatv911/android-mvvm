@@ -1,6 +1,7 @@
 package kay.clonedcoinio.modules.login
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
@@ -10,6 +11,7 @@ import com.kay.core.resolver.Resolution
 import com.kay.core.simple.SimpleFragment
 import com.kay.core.utils.Retriable
 import com.kay.core.utils.inject
+import com.tapadoo.alerter.Alerter
 import kay.clonedcoinio.R
 import kay.clonedcoinio.modules.coin.CoinActivity
 import kay.clonedcoinio.resolver.FcsUiResolver
@@ -49,15 +51,25 @@ class LoginFragment : SimpleFragment<LoginViewModel>(), Retriable {
 //        }
 //    }
 
-    inner class LoginUiResolver(fragment: Fragment) : DefaultUiResolver(fragment) {
+    internal inner class LoginUiResolver(fragment: Fragment) : DefaultUiResolver(fragment) {
         override fun showSuccess(message: String?) {
             val fragment = fragmentRef.get()
             fragment?.let {
-                launch(UI) {
-                    delay(3, TimeUnit.SECONDS)
-                    startActivity(Intent(it.context, CoinActivity::class.java))
-                    it.activity?.finish()
+                try {
+                    Alerter.create(it.requireActivity())
+                            .setText("Welcome to Cosmo")
+                            .setDuration(1000L)
+                            .setBackgroundColorInt(Color.CYAN)
+                            .show()
+                    launch(UI) {
+                        delay(2, TimeUnit.SECONDS)
+                        startActivity(Intent(it.context, CoinActivity::class.java))
+                        it.activity?.finish()
+                    }
+                } catch (e: Throwable) {
+
                 }
+
             }
         }
     }

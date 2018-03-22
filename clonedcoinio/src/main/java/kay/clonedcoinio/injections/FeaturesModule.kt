@@ -21,8 +21,4 @@ abstract class FeaturesModule {
     @Binds
     abstract fun application(app: App): Application
 
-    @Binds
-    @Singleton
-    abstract fun perActivityFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
 }
