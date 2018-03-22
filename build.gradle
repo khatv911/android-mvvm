@@ -8,10 +8,10 @@ buildscript {
             'targetSdk' : 27,
 
             'version'   : [
-                    'major': 0,
+                    'major': 1,
                     'minor': 0,
-                    'patch': 1,
-                    'build': 5,
+                    'patch': 0,
+                    'build': 1,
             ],
     ]
     ext.buildConfig.version['name'] = "${buildConfig.version.major}.${buildConfig.version.minor}.${buildConfig.version.patch}"
