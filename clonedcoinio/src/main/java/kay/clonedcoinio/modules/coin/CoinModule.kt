@@ -21,7 +21,7 @@ abstract class CoinModule {
     abstract fun bindVM(vm: CoinListViewModel): ViewModel
 
     @ContributesAndroidInjector
-    abstract fun provideMasterFragment(): CoinRecyclerViewFragment
+    abstract fun provideMasterFragment(): CoinsFragment
 
 
 }

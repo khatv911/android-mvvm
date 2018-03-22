@@ -40,7 +40,7 @@ abstract class AbsBaseViewModel : ViewModel() {
     private val mSuccessEvent = SingleLiveEvent<String>()
 
 
-    private val liveDataList = mutableSetOf<LiveData<*>>().apply {
+    private val liveDataSet = mutableSetOf<LiveData<*>>().apply {
         this += mLoadingEvent
         this += mErrorEvent
         this += mSuccessEvent
@@ -97,11 +97,16 @@ abstract class AbsBaseViewModel : ViewModel() {
      * Keep track of the livedata
      */
     internal fun manageLiveData(liveData: LiveData<*>) {
-        liveDataList += liveData
+        liveDataSet += liveData
     }
 
     fun tearDown(lifecycleOwner: LifecycleOwner) {
-        liveDataList.forEach { it.removeObservers(lifecycleOwner) }
+        liveDataSet.forEach { it.removeObservers(lifecycleOwner) }
+    }
+
+    override fun onCleared() {
+        liveDataSet.clear()
+        super.onCleared()
     }
 
     fun setup(lifecycleOwnerExt: LifecycleOwnerExt) {
@@ -136,6 +141,7 @@ abstract class AbsBaseViewModel : ViewModel() {
          */
         mRetryEvent.observe(lifecycleOwnerExt, Observer { })
     }
+
 
 }
 

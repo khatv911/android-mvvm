@@ -5,7 +5,7 @@
 
     <fragment
     android:id="@+id/fragmentMaster"
-    android:name="kay.clonedcoinio.modules.coin.CoinRecyclerViewFragment"
+    android:name="kay.clonedcoinio.modules.coin.CoinsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

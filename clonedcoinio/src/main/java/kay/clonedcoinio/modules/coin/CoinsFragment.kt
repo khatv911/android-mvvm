@@ -22,7 +22,7 @@ import kay.clonedcoinio.resolver.FcsUiResolver
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinRecyclerViewFragment : SimpleRecyclerViewFragment<List<Coin>, CoinListViewModel>(), Retriable {
+class CoinsFragment : SimpleRecyclerViewFragment<List<Coin>, CoinListViewModel>(), Retriable {
 
 
     internal class CoinClickHandler : ItemHandler<Coin> {
@@ -101,7 +101,7 @@ class CoinRecyclerViewFragment : SimpleRecyclerViewFragment<List<Coin>, CoinList
     }
 
     companion object {
-        fun newInstance() = CoinRecyclerViewFragment().apply {
+        fun newInstance() = CoinsFragment().apply {
             arguments = Bundle().apply { }
         }
     }
