@@ -109,6 +109,7 @@ dependencies {
 
     implementation deps.rx.kotlin
     implementation deps.rx.android
+    implementation deps.rx.binding.framework
 
 
 

@@ -1,9 +1,9 @@
 package kay.clonedcoinio.modules.coin
 
 import android.arch.lifecycle.MutableLiveData
-import com.kay.core.utils.switchMap
 import com.kay.core.simple.SimpleDataModel
-import kay.clonedcoinio.models.entities.Coin
+import com.kay.core.utils.switchMap
+import kay.clonedcoinio.models.entities.CoinItemViewModel
 import kay.clonedcoinio.models.repositories.CoinRepository
 import javax.inject.Inject
 
@@ -12,9 +12,9 @@ import javax.inject.Inject
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinListViewModel @Inject constructor(private val repository: CoinRepository) : SimpleDataModel<List<Coin>>() {
+class CoinListViewModel @Inject constructor(private val repository: CoinRepository) : SimpleDataModel<List<CoinItemViewModel>>() {
 
-    private val trigger = MutableLiveData<Boolean>()
+    private val trigger = MutableLiveData<String?>()
 
 
     fun refresh() {
@@ -24,7 +24,7 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
 
     fun getAllCoins() {
         setLoading()
-        trigger.value = true
+        trigger.value = null
     }
 
     fun retry() {
@@ -34,8 +34,18 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
         }
     }
 
+    fun searchCoinsWithName(name: String) {
+        if (name != trigger.value) {
+            repository.getCoinsWithName(name)
+            trigger.value = name
+        }
+    }
+
     init {
-        mLiveData = trigger.switchMap { repository.getAllCoins() }
+        mLiveData = trigger.switchMap { keyword ->
+            if (keyword.isNullOrBlank()) repository.allCoinsLiveData
+            else repository.filteredCoinsLiveData
+        }
 
         mStateEvent.apply {
             addSource(repository.requestStateEvent, {

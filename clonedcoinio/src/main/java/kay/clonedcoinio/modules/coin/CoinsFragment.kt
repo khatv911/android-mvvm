@@ -9,14 +9,20 @@ import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.widget.SearchView
+import com.jakewharton.rxbinding2.widget.RxSearchView
 import com.kay.core.resolver.DefaultResolution
 import com.kay.core.simple.SimpleRecyclerViewFragment
 import com.kay.core.utils.ItemHandler
 import com.kay.core.utils.Retriable
 import com.kay.core.utils.inject
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import kay.clonedcoinio.R
 import kay.clonedcoinio.models.entities.Coin
+import kay.clonedcoinio.models.entities.CoinItemViewModel
 import kay.clonedcoinio.resolver.FcsUiResolver
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -24,8 +30,10 @@ import kay.clonedcoinio.resolver.FcsUiResolver
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinsFragment : SimpleRecyclerViewFragment<List<Coin>, CoinListViewModel>(), Retriable {
+class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinListViewModel>(), Retriable {
 
+
+    private lateinit var searchViewDisposable: Disposable
 
     internal class CoinClickHandler : ItemHandler<Coin> {
         override fun invoke(p1: Coin) {
@@ -80,7 +88,27 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<Coin>, CoinListViewModel>(
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_fragment_coin, menu)
+        val search = menu?.findItem(R.id.app_bar_search)
+        val searchView = search?.actionView as SearchView
+        searchViewDisposable = RxSearchView.queryTextChanges(searchView)
+                .skipInitialValue()
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    mViewModel.searchCoinsWithName(it.toString())
+                }
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
+    /**
+     * Dispose due to fragment lifecycle
+     * https://www.techsfo.com/blog/wp-content/uploads/2014/08/complete_android_fragment_lifecycle.png
+     */
+    override fun onPause() {
+        searchViewDisposable.dispose()
+        super.onPause()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,7 +117,7 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<Coin>, CoinListViewModel>(
     }
 
 
-    override fun onDataChanged(t: List<Coin>) {
+    override fun onDataChanged(t: List<CoinItemViewModel>) {
         mAdapter.submitList(t)
     }
 
@@ -105,6 +133,12 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<Coin>, CoinListViewModel>(
      */
     override fun doOnRefresh() {
         mViewModel.refresh()
+    }
+
+
+    override fun onDestroyView() {
+
+        super.onDestroyView()
     }
 
     companion object {

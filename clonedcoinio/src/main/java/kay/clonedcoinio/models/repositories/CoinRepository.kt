@@ -1,6 +1,6 @@
 package kay.clonedcoinio.models.repositories
 
-import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import com.kay.core.utils.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
@@ -32,16 +32,15 @@ class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : Ba
     private val webService = api.create(Apis::class.java)
     private val coinDao = appDB.coinDao()
 
-
-    /**
-     * Get all coin from db
-     */
-    fun getAllCoins() = createNetworkBoundResource(
+    val allCoinsLiveData = createNetworkBoundResource(
             coinDao.getAllCoins(),
             webService.getCoins(),
             { coins -> coinDao.insert(coins) },
             { coins -> coins?.isEmpty() ?: true }
     )
+
+    val filteredCoinsLiveData = MutableLiveData<List<CoinItemViewModel>>()
+
 
     private val disposable = CompositeDisposable()
     private val socket = IO.socket("https://coincap.io")
@@ -50,9 +49,11 @@ class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : Ba
     /**
      * @param name short name or long name of a coin
      */
-    fun getCoinsWithName(name: String): LiveData<List<CoinItemViewModel>?> {
-        return coinDao.getCoinsWithName(name)
+    fun getCoinsWithName(name: String) = launch(UI) {
+        val task = async(CommonPool) { coinDao.getCoinsWithName(name) }
+        filteredCoinsLiveData.postValue(task.await())
     }
+
 
     /**
      * Start the socket and handle stream event

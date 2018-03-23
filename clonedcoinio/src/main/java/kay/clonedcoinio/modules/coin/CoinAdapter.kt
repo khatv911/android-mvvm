@@ -12,6 +12,7 @@ import com.kay.core.utils.inflate
 import com.kay.core.ui.DiffingAdapter
 import kay.clonedcoinio.R
 import kay.clonedcoinio.models.entities.Coin
+import kay.clonedcoinio.models.entities.CoinItemViewModel
 import kotlinx.android.synthetic.main.item_view_coin.view.*
 
 /**
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.item_view_coin.view.*
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinAdapter : DiffingAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_ITEM_CALLBACK) {
+class CoinAdapter : DiffingAdapter<CoinItemViewModel, CoinAdapter.CoinViewHolder>(DIFF_ITEM_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
         return CoinViewHolder(parent.inflate(R.layout.item_view_coin))
@@ -66,7 +67,7 @@ class CoinAdapter : DiffingAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_ITEM_C
         }
 
 
-        fun bindTo(coin: Coin?) = with(itemView) {
+        fun bindTo(coin: CoinItemViewModel?) = with(itemView) {
             coin?.apply {
                 tv_item_coin_long_name.text = longName ?: "N/A"
                 tv_item_coin_short_name.text = shortName ?: "N/A"
@@ -78,7 +79,7 @@ class CoinAdapter : DiffingAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_ITEM_C
 
         }
 
-        fun priceUp(coin: Coin?) = with(itemView) {
+        fun priceUp(coin: CoinItemViewModel?) = with(itemView) {
             coin?.apply {
                 with(tv_item_coin_price) {
                     text = context.resources.getString(R.string.dollar_sign_format, price)
@@ -87,7 +88,7 @@ class CoinAdapter : DiffingAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_ITEM_C
             }
         }
 
-        fun priceDown(coin: Coin?) = with(itemView) {
+        fun priceDown(coin: CoinItemViewModel?) = with(itemView) {
             coin?.apply {
 
                 with(tv_item_coin_price) {
@@ -107,16 +108,16 @@ class CoinAdapter : DiffingAdapter<Coin, CoinAdapter.CoinViewHolder>(DIFF_ITEM_C
         val COLOR_BUY = Color.parseColor("#34bc7d")
         val COLOR_SELL = Color.parseColor("#ef7c7c")
 
-        val DIFF_ITEM_CALLBACK = object : DiffUtil.ItemCallback<Coin>() {
-            override fun areItemsTheSame(oldItem: Coin, newItem: Coin): Boolean {
+        val DIFF_ITEM_CALLBACK = object : DiffUtil.ItemCallback<CoinItemViewModel>() {
+            override fun areItemsTheSame(oldItem: CoinItemViewModel, newItem: CoinItemViewModel): Boolean {
                 return oldItem.shortName == newItem.shortName
             }
 
-            override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {
+            override fun areContentsTheSame(oldItem: CoinItemViewModel, newItem: CoinItemViewModel): Boolean {
                 return oldItem == newItem
             }
 
-            override fun getChangePayload(oldItem: Coin, newItem: Coin): Any {
+            override fun getChangePayload(oldItem: CoinItemViewModel, newItem: CoinItemViewModel): Any {
                 return when {
                     oldItem.price < newItem.price -> PRICE_UP
                     else -> PRICE_DOWN

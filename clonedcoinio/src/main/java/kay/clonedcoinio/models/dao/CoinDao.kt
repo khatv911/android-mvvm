@@ -18,7 +18,7 @@ abstract class CoinDao {
     abstract fun getAllCoins(): LiveData<List<CoinItemViewModel>?>
 
     @Query("SELECT longName, shortName, price FROM tbl_coin WHERE shortName LIKE :name OR longName LIKE :name")
-    abstract fun getCoinsWithName(name: String): LiveData<List<CoinItemViewModel>?>
+    abstract fun getCoinsWithName(name: String): List<CoinItemViewModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(lst: List<Coin>)
