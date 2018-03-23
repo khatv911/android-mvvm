@@ -6,16 +6,18 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import com.kay.core.resolver.DefaultResolution
-import com.kay.core.resolver.Resolution
-import com.kay.core.utils.inject
 import com.kay.core.simple.SimpleRecyclerViewFragment
 import com.kay.core.utils.ItemHandler
 import com.kay.core.utils.Retriable
+import com.kay.core.utils.inject
 import kay.clonedcoinio.R
 import kay.clonedcoinio.models.entities.Coin
 import kay.clonedcoinio.resolver.FcsUiResolver
+
 
 /**
  * Created by Kay Tran on 2/2/18.
@@ -41,10 +43,7 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<Coin>, CoinListViewModel>(
     /**
      * Composition over inheritance
      */
-    override fun getResolution(): Resolution {
-        return DefaultResolution(mutableListOf(FcsUiResolver(this)))
-    }
-
+    override fun getResolution() = DefaultResolution(mutableListOf(FcsUiResolver(this)))
 
     private val mAdapter = CoinAdapter()
 
@@ -55,8 +54,6 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<Coin>, CoinListViewModel>(
     override fun getActionBarTitle(): String = "Cloned Coin Cap"
 
     override fun setupRecyclerView() {
-
-
         mRecyclerView.apply {
             setHasFixedSize(true)
             adapter = mAdapter
@@ -74,6 +71,16 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<Coin>, CoinListViewModel>(
                 }
             })
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_fragment_coin, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

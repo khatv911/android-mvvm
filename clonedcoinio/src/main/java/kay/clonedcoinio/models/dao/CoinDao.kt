@@ -3,6 +3,7 @@ package kay.clonedcoinio.models.dao
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import kay.clonedcoinio.models.entities.Coin
+import kay.clonedcoinio.models.entities.CoinItemViewModel
 import kay.clonedcoinio.models.entities.CoinMessage
 
 /**
@@ -13,8 +14,11 @@ import kay.clonedcoinio.models.entities.CoinMessage
 @Dao
 abstract class CoinDao {
 
-    @Query("select * from tbl_coin limit 20 ")
-    abstract fun getAllCoins(): LiveData<List<Coin>?>
+    @Query("select longName, shortName, price from tbl_coin")
+    abstract fun getAllCoins(): LiveData<List<CoinItemViewModel>?>
+
+    @Query("SELECT longName, shortName, price FROM tbl_coin WHERE shortName LIKE :name OR longName LIKE :name")
+    abstract fun getCoinsWithName(name: String): LiveData<List<CoinItemViewModel>?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(lst: List<Coin>)

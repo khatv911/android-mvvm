@@ -1,5 +1,6 @@
 package kay.clonedcoinio.models.repositories
 
+import android.arch.lifecycle.LiveData
 import com.kay.core.utils.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
@@ -7,6 +8,7 @@ import io.reactivex.schedulers.Schedulers
 import io.socket.client.IO
 import kay.clonedcoinio.models.Apis
 import kay.clonedcoinio.models.AppDatabase
+import kay.clonedcoinio.models.entities.CoinItemViewModel
 import kay.clonedcoinio.utils.createTradesStream
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
@@ -44,6 +46,13 @@ class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : Ba
     private val disposable = CompositeDisposable()
     private val socket = IO.socket("https://coincap.io")
 
+
+    /**
+     * @param name short name or long name of a coin
+     */
+    fun getCoinsWithName(name: String): LiveData<List<CoinItemViewModel>?> {
+        return coinDao.getCoinsWithName(name)
+    }
 
     /**
      * Start the socket and handle stream event
