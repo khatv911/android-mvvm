@@ -11,7 +11,6 @@ import com.squareup.moshi.Json
 data class CoinMessage(
         @Json(name = "coin")
         var shortName: String? = null,
-
         @Json(name = "msg")
         var coin: Coin? = null
 )

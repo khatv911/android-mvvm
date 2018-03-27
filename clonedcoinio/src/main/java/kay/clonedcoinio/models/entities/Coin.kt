@@ -1,6 +1,7 @@
 package kay.clonedcoinio.models.entities
 
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import com.squareup.moshi.Json
 
@@ -12,16 +13,16 @@ import com.squareup.moshi.Json
 @Entity(tableName = "tbl_coin")
 data class Coin(
         @PrimaryKey(autoGenerate = true)
-        var id: Long = 0L,
+        var id: Long,
         var cap24hrChange: Double = 0.0,
         @Json(name = "long")
-        var longName: String? = null,
-        var mktcap: String? = null,
+        var longName: String,
+        var mktcap: String,
         var perc: Double = 0.0,
         var price: Double = 0.0,
         var shapeshift: Boolean = false,
         @Json(name = "short")
-        var shortName: String? = null,
+        var shortName: String,
         var supply: Double = 0.0,
         var usdVolume: Double = 0.0,
         var volume: Double = 0.0,

@@ -70,6 +70,8 @@ dependencies {
     kapt deps.android.arch.lifecycle.compiler
 
 
+//    implementation deps.moshi
+//    implementation deps['moshi.kotlin']
 
     implementation deps.okhttp.client
     implementation deps.retrofit.client

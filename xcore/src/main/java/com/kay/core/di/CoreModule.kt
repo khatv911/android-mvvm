@@ -7,6 +7,7 @@ import com.kay.core.enviroments.inject
 import com.kay.core.utils.AccessTokenInterceptor
 import com.kay.core.utils.PrefHelper
 import com.kay.core.viewmodel.ViewModelFactory
+import com.squareup.moshi.Moshi
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -49,11 +50,20 @@ class CoreModule {
                 inject()
             }.build()
 
+
     @Provides
     @Singleton
-    fun provideRetrofit(@Named("baseUrl") baseUrl: String, okHttpClient: OkHttpClient): Retrofit =
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder().build()
+                // since 1.5.0
+//                .add(KotlinJsonAdapterFactory()).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(@Named("baseUrl") baseUrl: String, okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
             Retrofit.Builder()
-                    .addConverterFactory(MoshiConverterFactory.create())
+                    .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .baseUrl(baseUrl)
                     .client(okHttpClient)
                     .build()

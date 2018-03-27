@@ -14,7 +14,7 @@ import javax.inject.Inject
  */
 class CoinListViewModel @Inject constructor(private val repository: CoinRepository) : SimpleDataModel<List<CoinItemViewModel>>() {
 
-    private val trigger = MutableLiveData<String?>()
+    private val trigger = MutableLiveData<String>()
 
 
     fun refresh() {
@@ -22,10 +22,6 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
         repository.refresh()
     }
 
-    fun getAllCoins() {
-        setLoading()
-        trigger.value = null
-    }
 
     fun retry() {
         mRetry?.let {
@@ -34,17 +30,20 @@ class CoinListViewModel @Inject constructor(private val repository: CoinReposito
         }
     }
 
-    fun searchCoinsWithName(name: String) {
+    fun queryCoinsWithKeyword(name: String) {
         if (name != trigger.value) {
-            repository.getCoinsWithName(name)
             trigger.value = name
+            setLoading()
         }
     }
 
     init {
         mLiveData = trigger.switchMap { keyword ->
-            if (keyword.isNullOrBlank()) repository.allCoinsLiveData
-            else repository.filteredCoinsLiveData
+            if (keyword.isEmpty()) repository.getAllCoins()
+            else {
+                repository.getCoinsWithName(keyword!!)
+                repository.filteredCoinsLiveData
+            }
         }
 
         mStateEvent.apply {

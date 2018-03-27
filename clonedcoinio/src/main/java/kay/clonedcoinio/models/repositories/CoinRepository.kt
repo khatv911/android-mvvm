@@ -2,6 +2,7 @@ package kay.clonedcoinio.models.repositories
 
 import android.arch.lifecycle.MutableLiveData
 import com.kay.core.utils.*
+import com.squareup.moshi.Moshi
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
@@ -26,32 +27,45 @@ import javax.inject.Inject
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : BaseRepository() {
+class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase, val moshi: Moshi) : BaseRepository() {
 
 
     private val webService = api.create(Apis::class.java)
+
     private val coinDao = appDB.coinDao()
 
-    val allCoinsLiveData = createNetworkBoundResource(
+//    val allCoinsLiveData = createNetworkBoundResource(
+//            coinDao.getAllCoins(),
+//            webService.getCoins(),
+//            { coins -> coinDao.insert(coins) },
+//            { coins -> coins?.isEmpty() ?: true }
+//    )
+
+    /**
+     * this liveData is one-off, update from socket.io will not be reflected to the UI.
+     */
+    val filteredCoinsLiveData = SingleLiveEvent<List<CoinItemViewModel>>()
+
+
+    private val disposable = CompositeDisposable()
+
+    private val socket = IO.socket("https://coincap.io")
+
+
+    fun getAllCoins() = createNetworkBoundResource(
             coinDao.getAllCoins(),
             webService.getCoins(),
             { coins -> coinDao.insert(coins) },
             { coins -> coins?.isEmpty() ?: true }
     )
 
-    val filteredCoinsLiveData = MutableLiveData<List<CoinItemViewModel>>()
-
-
-    private val disposable = CompositeDisposable()
-    private val socket = IO.socket("https://coincap.io")
-
-
     /**
      * @param name short name or long name of a coin
      */
     fun getCoinsWithName(name: String) = launch(UI) {
-        val task = async(CommonPool) { coinDao.getCoinsWithName(name) }
+        val task = async(CommonPool) { coinDao.getCoinsWithName("%$name%") }
         filteredCoinsLiveData.postValue(task.await())
+        requestStateEvent.value = RequestState.DONE()
     }
 
 
@@ -59,7 +73,7 @@ class CoinRepository @Inject constructor(api: Retrofit, appDB: AppDatabase) : Ba
      * Start the socket and handle stream event
      */
     fun startSocket() {
-        disposable += socket.createTradesStream()
+        disposable += socket.createTradesStream(moshi)
                 .buffer(3, TimeUnit.SECONDS, 10)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(Schedulers.computation())

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "21ef6e5380f3830a005f12e7670b4c93",
+    "identityHash": "943191be37acc1957a4f38b5c8c2c7e4",
     "entities": [
       {
         "tableName": "tbl_coin",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cap24hrChange` REAL NOT NULL, `longName` TEXT, `mktcap` TEXT, `perc` REAL NOT NULL, `price` REAL NOT NULL, `shapeshift` INTEGER NOT NULL, `shortName` TEXT, `supply` REAL NOT NULL, `usdVolume` REAL NOT NULL, `volume` REAL NOT NULL, `vwapData` TEXT, `vwapDataBTC` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cap24hrChange` REAL NOT NULL, `longName` TEXT NOT NULL, `mktcap` TEXT NOT NULL, `perc` REAL NOT NULL, `price` REAL NOT NULL, `shapeshift` INTEGER NOT NULL, `shortName` TEXT NOT NULL, `supply` REAL NOT NULL, `usdVolume` REAL NOT NULL, `volume` REAL NOT NULL, `vwapData` TEXT, `vwapDataBTC` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -24,13 +24,13 @@
             "fieldPath": "longName",
             "columnName": "longName",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "mktcap",
             "columnName": "mktcap",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "perc",
@@ -54,7 +54,7 @@
             "fieldPath": "shortName",
             "columnName": "shortName",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "supply",
@@ -99,7 +99,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"21ef6e5380f3830a005f12e7670b4c93\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"943191be37acc1957a4f38b5c8c2c7e4\")"
     ]
   }
 }

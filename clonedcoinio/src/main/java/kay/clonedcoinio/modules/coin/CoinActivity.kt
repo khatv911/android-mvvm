@@ -1,6 +1,7 @@
 package kay.clonedcoinio.modules.coin
 
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AppCompatActivity
 import kay.clonedcoinio.R
 
@@ -9,12 +10,10 @@ import kay.clonedcoinio.R
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinActivity: AppCompatActivity() {
+class CoinActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coin)
-//        startSocket()
-
     }
 }

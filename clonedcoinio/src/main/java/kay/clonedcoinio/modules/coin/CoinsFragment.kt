@@ -1,27 +1,33 @@
 package kay.clonedcoinio.modules.coin
 
+import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import android.widget.SearchView
-import com.jakewharton.rxbinding2.widget.RxSearchView
+import android.support.v7.widget.SearchView
+import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView
 import com.kay.core.resolver.DefaultResolution
 import com.kay.core.simple.SimpleRecyclerViewFragment
+import com.kay.core.ui.OnItemInsertedCallback
 import com.kay.core.utils.ItemHandler
 import com.kay.core.utils.Retriable
 import com.kay.core.utils.inject
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
 import kay.clonedcoinio.R
 import kay.clonedcoinio.models.entities.Coin
 import kay.clonedcoinio.models.entities.CoinItemViewModel
 import kay.clonedcoinio.resolver.FcsUiResolver
+import kotlinx.android.synthetic.main.fragment_master.*
 import java.util.concurrent.TimeUnit
 
 
@@ -30,10 +36,15 @@ import java.util.concurrent.TimeUnit
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinListViewModel>(), Retriable {
+class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinListViewModel>(), Retriable, OnItemInsertedCallback {
 
 
-    private lateinit var searchViewDisposable: Disposable
+    private val searchViewDisposable = CompositeDisposable()
+
+    private var mKeyword: String = ""
+
+    private lateinit var searchView: SearchView
+
 
     internal class CoinClickHandler : ItemHandler<Coin> {
         override fun invoke(p1: Coin) {
@@ -48,12 +59,22 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinLi
     }
 
 
+    override fun onItemInserted(position: Int) {
+        // let's see.
+        mRecyclerView.smoothScrollToPosition(position)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        (activity as AppCompatActivity).setSupportActionBar(summary_toolbar)
+    }
+
     /**
      * Composition over inheritance
      */
     override fun getResolution() = DefaultResolution(mutableListOf(FcsUiResolver(this)))
 
-    private val mAdapter = CoinAdapter()
+    private val mAdapter = CoinAdapter(this)
 
     override fun getViewModel(): CoinListViewModel = VIEW_MODEL_FACTORY.inject(this, CoinListViewModel::class.java)
 
@@ -81,24 +102,59 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinLi
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
 
+    private val expandListener = object : MenuItem.OnActionExpandListener {
+        override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+            // Do something when action item collapses
+            return true // Return true to collapse action view
+        }
+
+        override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+            // Do something when expanded
+            return true // Return true to expand action view
+        }
+    }
+
+    private fun setupSearchView(searchMenuItem: MenuItem?) {
+        searchMenuItem?.setOnActionExpandListener(expandListener)
+        searchView = searchMenuItem?.actionView as SearchView
+        if (mKeyword.isNotEmpty()) {
+            searchView.setIconifiedByDefault(false)
+            searchView.setQuery(mKeyword, true)
+        }
+        searchViewDisposable += RxSearchView.queryTextChanges(searchView)
+                .skipInitialValue()
+                .debounce(500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onQueryChange, this::onQueryError)
+    }
+
+
+    private fun onQueryError(e: Throwable) {
+        mViewModel.setError(e)
+    }
+
+    private fun onQueryChange(charSequence: CharSequence) {
+        mKeyword = charSequence.toString()
+        mViewModel.queryCoinsWithKeyword(mKeyword)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_fragment_coin, menu)
         val search = menu?.findItem(R.id.app_bar_search)
-        val searchView = search?.actionView as SearchView
-        searchViewDisposable = RxSearchView.queryTextChanges(searchView)
-                .skipInitialValue()
-                .debounce(500, TimeUnit.MILLISECONDS)
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    mViewModel.searchCoinsWithName(it.toString())
-                }
+        setupSearchView(search)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(STATE_KEYWORD, mKeyword)
+        super.onSaveInstanceState(outState)
     }
 
 
@@ -106,14 +162,17 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinLi
      * Dispose due to fragment lifecycle
      * https://www.techsfo.com/blog/wp-content/uploads/2014/08/complete_android_fragment_lifecycle.png
      */
-    override fun onPause() {
-        searchViewDisposable.dispose()
-        super.onPause()
+    override fun onStop() {
+        searchViewDisposable.clear()
+        super.onStop()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mViewModel.getAllCoins()
+        savedInstanceState?.let {
+            mKeyword = it.getString(STATE_KEYWORD, null)
+        }
+        mViewModel.queryCoinsWithKeyword(mKeyword)
     }
 
 
@@ -135,13 +194,10 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinLi
         mViewModel.refresh()
     }
 
-
-    override fun onDestroyView() {
-
-        super.onDestroyView()
-    }
-
     companion object {
+
+        const val STATE_KEYWORD = "keyword"
+
         fun newInstance() = CoinsFragment().apply {
             arguments = Bundle().apply { }
         }

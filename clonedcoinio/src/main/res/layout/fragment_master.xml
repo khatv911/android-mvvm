@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/summary_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true"
+    app:statusBarBackground="@null">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/summary_appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:theme="?attr/actionBarTheme"
+        android:transitionGroup="true">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/summary_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:popupTheme="?attr/actionBarPopupTheme" />
+
+    </android.support.design.widget.AppBarLayout>
+
 
     <android.support.v4.widget.SwipeRefreshLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@id/base_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,4 +39,5 @@
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
-</LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

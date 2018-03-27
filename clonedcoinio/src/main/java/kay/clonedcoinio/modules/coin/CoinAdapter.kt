@@ -4,12 +4,16 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.support.v7.util.AdapterListUpdateCallback
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.kay.core.utils.inflate
 import com.kay.core.ui.DiffingAdapter
+import com.kay.core.ui.ItemInsertedAwareCallback
+import com.kay.core.ui.ListDiffer
+import com.kay.core.ui.OnItemInsertedCallback
 import kay.clonedcoinio.R
 import kay.clonedcoinio.models.entities.Coin
 import kay.clonedcoinio.models.entities.CoinItemViewModel
@@ -20,7 +24,22 @@ import kotlinx.android.synthetic.main.item_view_coin.view.*
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinAdapter : DiffingAdapter<CoinItemViewModel, CoinAdapter.CoinViewHolder>(DIFF_ITEM_CALLBACK) {
+class CoinAdapter(private val onItemInsertedCallback: OnItemInsertedCallback) : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
+
+    @Suppress("LeakingThis")
+    private val itemInsertedCallback = ItemInsertedAwareCallback(AdapterListUpdateCallback(this), onItemInsertedCallback)
+
+    private val listDiffer = ListDiffer(itemInsertedCallback, DIFF_ITEM_CALLBACK)
+
+    fun submitList(list: List<CoinItemViewModel>) = listDiffer.submitList(list)
+
+    fun getItem(position: Int): CoinItemViewModel {
+        return listDiffer.getItem(position)
+    }
+
+    override fun getItemCount(): Int {
+        return listDiffer.getItemCount()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
         return CoinViewHolder(parent.inflate(R.layout.item_view_coin))
@@ -69,11 +88,11 @@ class CoinAdapter : DiffingAdapter<CoinItemViewModel, CoinAdapter.CoinViewHolder
 
         fun bindTo(coin: CoinItemViewModel?) = with(itemView) {
             coin?.apply {
-                tv_item_coin_long_name.text = longName ?: "N/A"
-                tv_item_coin_short_name.text = shortName ?: "N/A"
+                tv_item_coin_long_name.text = longName
+                tv_item_coin_short_name.text = shortName
                 with(tv_item_coin_price) {
                     text = context.resources.getString(R.string.dollar_sign_format, price)
-                    setTextColor(Color.BLACK)
+//                    setTextColor(Color.BLACK)
                 }
             }
 

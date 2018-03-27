@@ -37,6 +37,7 @@ android {
         // progaurds
         proguardFiles getDefaultProguardFile('proguard-android.txt'),
                 'proguard-rules.pro',
+                '../proguards/proguard-support-v7-appcompat.pro',
                 '../proguards/proguard-calligraphy-2.1.0.pro',
                 '../proguards/proguard-crashlytics-2.pro',
                 '../proguards/proguard-glide.pro',
@@ -89,8 +90,8 @@ dependencies {
     kapt deps.android.arch.room.compiler
     implementation deps.android.arch.paging.runtime
 
-    implementation deps.moshi
-    implementation deps['moshi.kotlin']
+//    implementation deps.moshi
+//    implementation deps['moshi.kotlin']
 
     implementation deps.okhttp.client
     implementation deps.retrofit.client
@@ -110,6 +111,7 @@ dependencies {
     implementation deps.rx.kotlin
     implementation deps.rx.android
     implementation deps.rx.binding.framework
+    implementation deps.rx.binding.appcompat
 
 
 

@@ -1,11 +1,11 @@
 package kay.clonedcoinio.utils
 
-import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.socket.client.Socket
 import kay.clonedcoinio.models.entities.CoinMessage
+import javax.inject.Inject
 
 
 /**
@@ -14,8 +14,7 @@ import kay.clonedcoinio.models.entities.CoinMessage
  * Email   : khatv911@gmail.com
  */
 
-fun Socket.createTradesStream(): Flowable<CoinMessage> {
-    val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+fun Socket.createTradesStream(moshi: Moshi): Flowable<CoinMessage> {
     val adapter = moshi.adapter(CoinMessage::class.java)
     return Flowable.create<CoinMessage>({ sub ->
         on("trades", {

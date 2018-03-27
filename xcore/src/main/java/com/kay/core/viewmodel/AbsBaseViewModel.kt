@@ -88,7 +88,7 @@ abstract class AbsBaseViewModel : ViewModel() {
     }
 
 
-    protected fun setError(throwable: Throwable) {
+    fun setError(throwable: Throwable) {
         mErrorEvent.value = throwable
     }
 
