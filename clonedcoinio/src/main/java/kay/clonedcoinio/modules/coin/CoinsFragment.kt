@@ -123,9 +123,12 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinLi
     private fun setupSearchView(searchMenuItem: MenuItem?) {
         searchMenuItem?.setOnActionExpandListener(expandListener)
         searchView = searchMenuItem?.actionView as SearchView
+        searchView.maxWidth = Integer.MAX_VALUE;
         if (mKeyword.isNotEmpty()) {
-            searchView.setIconifiedByDefault(false)
+            searchMenuItem.expandActionView()
+            searchView.isIconified = false
             searchView.setQuery(mKeyword, true)
+
         }
         searchViewDisposable += RxSearchView.queryTextChanges(searchView)
                 .skipInitialValue()
@@ -136,7 +139,7 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinLi
 
 
     private fun onQueryError(e: Throwable) {
-        mViewModel.setError(e)
+        uiResolution.resolve(e)
     }
 
     private fun onQueryChange(charSequence: CharSequence) {

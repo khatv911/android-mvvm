@@ -28,7 +28,7 @@ abstract class AbsBaseFragment : DaggerFragment(), LifecycleOwnerExt {
      * provide a resolution lazily.
      * fallback to default
      */
-    private val uiResolution by lazy {
+    val uiResolution by lazy {
         getResolution()
     }
 
