@@ -19,58 +19,58 @@ class DefaultResolution constructor(private val resolvers: MutableList<UiResolve
 
     override fun onGenericException(throwable: Throwable) {
 
-        resolvers.map {
+        resolvers.forEach {
             it.resolveErrorMessage(throwable.message
                     ?: "Unknown error", retryOption = true to R.string.retry)
         }
     }
 
     override fun onConnectivityAvailable() {
-        resolvers.map { it.showConnectivity(true) }
+        resolvers.forEach { it.showConnectivity(true) }
     }
 
     override fun onConnectivityUnavailable() {
-        resolvers.map { it.showConnectivity(false) }
+        resolvers.forEach { it.showConnectivity(false) }
     }
 
     override fun onUnavailableService() {
-        resolvers.map {
+        resolvers.forEach {
             it.resolveErrorMessage(R.string.message_error_service_unavailable, retryOption = true to R.string.retry)
         }
     }
 
     override fun onInternalServerError() {
-        resolvers.map {
+        resolvers.forEach {
             it.resolveErrorMessage(R.string.message_error_internal_server_error, retryOption = true to R.string.retry)
         }
     }
 
     override fun onClientError() {
-        resolvers.map {
+        resolvers.forEach {
             it.resolveErrorMessage(R.string.message_error_client_error)
         }
     }
 
     override fun onNotFound() {
-        resolvers.map {
+        resolvers.forEach {
             it.resolveNotFound()
         }
     }
 
     override fun onUnAuthorized() {
-        resolvers.map {
+        resolvers.forEach {
             it.resolveUnAuthorized()
         }
     }
 
     override fun onForbidden() {
-        resolvers.map {
+        resolvers.forEach {
             it.resolveForbidden()
         }
     }
 
     override fun success(message: String?) {
-        resolvers.map {
+        resolvers.forEach {
             it.showSuccess(message)
         }
     }
