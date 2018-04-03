@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "dda2366cab1cf1eb4e4c33b37cd2fdfa",
+    "entities": [
+      {
+        "tableName": "tbl_coin",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cap24hrChange` REAL NOT NULL, `longName` TEXT NOT NULL, `mktcap` TEXT NOT NULL, `perc` REAL NOT NULL, `price` REAL NOT NULL, `shapeshift` INTEGER NOT NULL, `shortName` TEXT NOT NULL, `supply` REAL NOT NULL, `usdVolume` REAL NOT NULL, `volume` REAL NOT NULL, `vwapData` TEXT NOT NULL, `vwapDataBTC` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cap24hrChange",
+            "columnName": "cap24hrChange",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longName",
+            "columnName": "longName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mktcap",
+            "columnName": "mktcap",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "perc",
+            "columnName": "perc",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "price",
+            "columnName": "price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shapeshift",
+            "columnName": "shapeshift",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shortName",
+            "columnName": "shortName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "supply",
+            "columnName": "supply",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "usdVolume",
+            "columnName": "usdVolume",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "volume",
+            "columnName": "volume",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vwapData",
+            "columnName": "vwapData",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vwapDataBTC",
+            "columnName": "vwapDataBTC",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"dda2366cab1cf1eb4e4c33b37cd2fdfa\")"
+    ]
+  }
+}

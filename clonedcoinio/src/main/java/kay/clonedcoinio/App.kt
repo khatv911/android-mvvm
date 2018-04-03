@@ -1,6 +1,5 @@
 package kay.clonedcoinio
 
-import com.kay.apptemplate.di.FeaturesModule
 import com.kay.core.enviroments.injectEnvSettings
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -17,10 +16,7 @@ import javax.inject.Singleton
 class App : dagger.android.support.DaggerApplication() {
 
     @Singleton
-    @dagger.Component(modules = [AndroidSupportInjectionModule::class,
-        AppModule::class, FeaturesModule::class
-    ]
-    )
+    @dagger.Component(modules = [AndroidSupportInjectionModule::class, AppModule::class])
     interface Component : AndroidInjector<App> {
         @dagger.Component.Builder
         abstract class Builder : AndroidInjector.Builder<App>()

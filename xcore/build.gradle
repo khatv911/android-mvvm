@@ -55,40 +55,53 @@ android {
 
 dependencies {
 
-    implementation deps.kotlin.stdlib.jdk
-    implementation deps.kotlin.coroutines.jdk
-    implementation deps.kotlin.coroutines.android
+    api deps.kotlin.stdlib.jdk
+    api deps.kotlin.coroutines.jdk
+    api deps.kotlin.coroutines.android
 
     //dagger
-    implementation deps.dagger.runtime
+    api deps.dagger.runtime
     kapt deps.dagger.compiler
-    implementation deps.dagger.android.runtime
-    implementation deps.dagger.android.support
+    api deps.dagger.android.runtime
+    api deps.dagger.android.support
     kapt deps.dagger.android.proccesor
 
-    implementation deps.android.arch.lifecycle.extensions
+    api deps.android.arch.lifecycle.extensions
     kapt deps.android.arch.lifecycle.compiler
+    api deps.android.arch.room.runtime
+    kapt deps.android.arch.room.compiler
+    api deps.android.arch.paging.runtime
+
 
 
 //    implementation deps.moshi
 //    implementation deps['moshi.kotlin']
 
     implementation deps.okhttp.client
-    implementation deps.retrofit.client
-    implementation deps.retrofit.koroutine
-    implementation deps.retrofit.converterMoshi
+    api deps.retrofit.client
+    api deps.retrofit.koroutine
+    api deps.retrofit.converterMoshi
 
     // timber
-    implementation deps.timber
+    api deps.timber
 
     // Views
-    implementation deps.android.support.fragment
-    implementation deps.android.support.recyclerView
-    implementation deps.android.support.coreUi
-    implementation deps.android.x.coreKtx
+    api deps.android.support.fragment
+    api deps.android.support.recyclerView
+    api deps.android.support.coreUi
+    api deps.android.support.constraintLayout
+    api deps.android.support.design
+    api deps.alerter
+
+    api deps.rx.kotlin
+    api deps.rx.android
+    api deps.rx.binding.framework
+    api deps.rx.binding.appcompat
+
+    api deps.android.x.coreKtx
 
     //annotation
-    implementation deps.android.support.annotations
+    api deps.android.support.annotations
 
 
     debugImplementation deps.okhttp.logging

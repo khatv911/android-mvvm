@@ -1,0 +1,60 @@
+apply plugin: 'com.android.feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 'android-P'
+
+    baseFeature false
+
+    defaultConfig {
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        // room schema
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
+
+        // used by Room, to test migrations
+        sourceSets {
+            androidTest.assets.srcDirs +=
+                    files("$projectDir/schemas".toString())
+        }
+
+    }
+
+    buildTypes {
+//        release {
+//            postprocessing {
+//                removeUnusedCode false
+//                removeUnusedResources false
+//                obfuscate false
+//                optimizeCode false
+//                proguardFile 'proguard-rules.pro'
+//            }
+//        }
+    }
+
+}
+
+dependencies {
+
+    application project(':clonedcoinio')
+
+    implementation deps.android.arch.lifecycle.extensions
+    kapt deps.android.arch.lifecycle.compiler
+
+    implementation deps.android.arch.room.runtime
+    kapt deps.android.arch.room.compiler
+    implementation deps.android.arch.paging.runtime
+
+
+    implementation deps.moshi
+    implementation deps['moshi.kotlin']
+}

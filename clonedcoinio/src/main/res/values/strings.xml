@@ -3,7 +3,7 @@
     <item name="visible" type="id"/>
     <item name="masked" type="id"/>
     <string name="app_name">Android MVVM</string>
-    <string name="dollar_sign_format">\$%.4f</string>
+
     <string name="enter_username">Username</string>
     <string name="hint_password">Password</string>
     <string name="login">Login</string>

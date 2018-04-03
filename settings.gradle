@@ -1,1 +1,1 @@
-include ':xcore', ':clonedcoinio'
+include  ':clonedcoinio', ':features:coin', ':features:appdb',':xcore'

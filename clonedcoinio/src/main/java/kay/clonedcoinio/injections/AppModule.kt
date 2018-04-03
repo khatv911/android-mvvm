@@ -2,10 +2,10 @@ package kay.clonedcoinio.injections
 
 import android.app.Application
 import android.arch.persistence.room.Room
+import com.kay.appdb.AppDatabase
 import com.kay.core.di.CoreModule
 import dagger.Module
 import dagger.Provides
-import kay.clonedcoinio.models.AppDatabase
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 * Profile: https://github.com/khatv911
 * Email: khatv911@gmail.com
 */
-@Module(includes = [CoreModule::class])
+@Module(includes = [CoreModule::class, FeaturesModule::class])
 class AppModule {
 
     @Provides
@@ -25,5 +25,6 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(application: Application) = Room.databaseBuilder(application, AppDatabase::class.java, "AppDB.db").build()
+    fun provideDatabase(application: Application): AppDatabase = Room.databaseBuilder(application, AppDatabase::class.java, "AppDB.db").build()
+
 }
