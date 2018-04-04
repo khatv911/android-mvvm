@@ -1,11 +1,10 @@
-apply plugin: 'com.android.feature'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 'android-P'
 
-    baseFeature false
 
     defaultConfig {
         minSdkVersion buildConfig.minSdk
@@ -45,7 +44,6 @@ android {
 
 dependencies {
 
-    application project(':clonedcoinio')
 
     implementation deps.android.arch.lifecycle.extensions
     kapt deps.android.arch.lifecycle.compiler

@@ -59,7 +59,14 @@ dependencies {
 
 
     implementation project(':features:appdb')
+
     implementation project(':features:coin')
+
+    api project(':xcore')
+
+    implementation deps.android.support.appCompat
+    implementation deps.android.support.coreUi
+    implementation deps.android.support.design
 
     //dagger
     implementation deps.dagger.runtime
@@ -71,9 +78,6 @@ dependencies {
 
     implementation deps.android.arch.lifecycle.extensions
     kapt deps.android.arch.lifecycle.compiler
-    implementation deps.android.arch.room.runtime
-    kapt deps.android.arch.room.compiler
-    implementation deps.android.arch.paging.runtime
 
 
 

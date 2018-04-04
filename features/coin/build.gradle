@@ -1,4 +1,4 @@
-apply plugin: 'com.android.feature'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -8,7 +8,6 @@ android {
     compileSdkVersion 'android-P'
 
 
-    baseFeature false
 
     defaultConfig {
         minSdkVersion buildConfig.minSdk
@@ -67,9 +66,6 @@ dependencies {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }
-}
-repositories {
-    mavenCentral()
 }
 
 kotlin {
