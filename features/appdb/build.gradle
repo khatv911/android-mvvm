@@ -52,7 +52,11 @@ dependencies {
     kapt deps.android.arch.room.compiler
     implementation deps.android.arch.paging.runtime
 
-
     implementation deps.moshi
-    implementation deps['moshi.kotlin']
+    api deps.kotlin.stdlib.jdk
+
+
+}
+repositories {
+    mavenCentral()
 }

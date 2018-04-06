@@ -105,6 +105,8 @@ dependencies {
     //annotation
     api deps.android.support.annotations
 
+    api deps.moshi
+
 
     debugImplementation deps.okhttp.logging
     debugImplementation deps.stetho

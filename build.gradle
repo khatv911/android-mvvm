@@ -24,10 +24,11 @@ buildscript {
             'kotlinCoroutines'   : '0.22.2',
             'kotlinSerialization': '0.4',
             'okhttp'             : '3.9.1',
-            'retrofit'           : '2.3.0',
-            'kotshi'             : '0.3.0',
+            'retrofit'           : '2.4.0',
+            'kotshi'             : '1.0.2',
             'dagger'             : '2.14.1',
             'rxbinding'          : '2.1.0',
+            'moshi'                 : '1.4.0',
             'arch'               : [
                     'extensions': '1.1.0',
                     'room'      : '1.0.0',
@@ -135,6 +136,8 @@ buildscript {
                             'proccesor': "com.google.dagger:dagger-android-processor:${versions.dagger}"
                     ]
             ],
+
+            'moshi': "com.squareup.moshi:moshi:${versions.moshi}",
             // not recommended
             'groupie'       : "com.xwray:groupie:2.0.3",
             'groupie.kotlin': "com.xwray:groupie-kotlin-android-extensions:2.0.3",
@@ -144,8 +147,6 @@ buildscript {
             'stetho.okhttp' : "com.facebook.stetho:stetho-okhttp3:${versions.stetho}",
             'glide'         : "com.github.bumptech.glide:glide:${versions.glide}",
             'okio'          : 'com.squareup.okio:okio:1.13.0',
-            'moshi'         : 'com.squareup.moshi:moshi:1.5.0',
-            'moshi.kotlin'  : 'com.squareup.moshi:moshi-kotlin:1.5.0',
             'timber'        : 'com.jakewharton.timber:timber:4.6.0',
             'junit'         : 'junit:junit:4.12',
             'bugsnag'       : 'com.bugsnag:bugsnag-android:4.2.2',
@@ -200,7 +201,7 @@ allprojects {
 
 
                 if (details.requested.group == 'com.squareup.moshi') {
-                    details.useVersion '1.5.0'
+                    details.useVersion '1.4.0'
                 }
             }
         }

@@ -64,9 +64,9 @@ dependencies {
 
     api project(':xcore')
 
-    implementation deps.android.support.appCompat
-    implementation deps.android.support.coreUi
-    implementation deps.android.support.design
+//    implementation deps.android.support.appCompat
+//    implementation deps.android.support.coreUi
+//    implementation deps.android.support.design
 
     //dagger
     implementation deps.dagger.runtime
