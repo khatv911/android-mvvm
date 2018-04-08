@@ -22,12 +22,14 @@ import kotlinx.android.synthetic.main.item_view_coin.view.*
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinAdapter(private val onItemInsertedCallback: OnItemInsertedCallback) : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
+class CoinAdapter(private val firstInserted: (Int) -> Unit) : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
 
     @Suppress("LeakingThis")
-    private val itemInsertedCallback = ItemInsertedAwareCallback(AdapterListUpdateCallback(this), onItemInsertedCallback)
+    private val itemInsertedCallback = ItemInsertedAwareCallback(AdapterListUpdateCallback(this))
 
-    private val listDiffer = ListDiffer(itemInsertedCallback, DIFF_ITEM_CALLBACK)
+    private val listDiffer = ListDiffer(itemInsertedCallback, DIFF_ITEM_CALLBACK).apply {
+        onFirstInserted = firstInserted
+    }
 
     fun submitList(list: List<CoinItemViewModel>) = listDiffer.submitList(list)
 

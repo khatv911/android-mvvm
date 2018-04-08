@@ -15,11 +15,15 @@ import kotlinx.coroutines.experimental.launch
  * Profile : https://github.com/khatv911
  * Email   : khatv911@gmail.com
  */
-class ListDiffer<D> constructor(private val mUpdateCallback: ListUpdateCallback, private val diffItemCallback: DiffUtil.ItemCallback<D>) {
+class ListDiffer<D> constructor(private val mUpdateCallback: ItemInsertedAwareCallback,
+                                private val diffItemCallback: DiffUtil.ItemCallback<D>) {
 
-    constructor(adapter: RecyclerView.Adapter<*>, itemCallback: DiffUtil.ItemCallback<D>) : this(AdapterListUpdateCallback(adapter), itemCallback)
+    constructor(adapter: RecyclerView.Adapter<*>, itemCallback: DiffUtil.ItemCallback<D>)
+            : this(ItemInsertedAwareCallback(AdapterListUpdateCallback(adapter)), itemCallback)
 
-    var onEmptyListCallback: (() -> Any)? = null
+    var onEmptyListCallback: (() -> Unit)? = null
+
+    var onFirstInserted: ((Int) -> Unit)? = null
 
     private var mData: List<D> = emptyList()
 
@@ -37,6 +41,11 @@ class ListDiffer<D> constructor(private val mUpdateCallback: ListUpdateCallback,
         val result = DiffUtil.calculateDiff(diffCallback.apply { newList = list }, false)
         launch(UI) {
             result.dispatchUpdatesTo(mUpdateCallback)
+            if (mUpdateCallback.firstInsert != -1) {
+                onFirstInserted?.invoke(mUpdateCallback.firstInsert)
+                mUpdateCallback.firstInsert = -1
+            }
+
             mData = list
             if (mData.isEmpty()) onEmptyListCallback?.invoke()
         }.join()

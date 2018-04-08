@@ -27,6 +27,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.fragment_master.*
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 
@@ -35,7 +36,7 @@ import java.util.concurrent.TimeUnit
  * Profile: https://github.com/khatv911
  * Email: khatv911@gmail.com
  */
-class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinListViewModel>(), Retriable, OnItemInsertedCallback {
+class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinListViewModel>(), Retriable {
 
 
     private val searchViewDisposable = CompositeDisposable()
@@ -44,24 +45,6 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinLi
 
     private lateinit var searchView: SearchView
 
-
-//    internal class CoinClickHandler : ItemHandler<Coin> {
-//        override fun invoke(p1: Coin) {
-//            //
-//        }
-//    }
-//
-//    internal class ToggleFavorite : ItemHandler<Coin> {
-//        override fun invoke(p1: Coin) {
-//
-//        }
-//    }
-
-
-    override fun onItemInserted(position: Int) {
-        // let's see.
-        mRecyclerView.smoothScrollToPosition(position)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -73,7 +56,13 @@ class CoinsFragment : SimpleRecyclerViewFragment<List<CoinItemViewModel>, CoinLi
      */
     override fun getResolution() = DefaultResolution(mutableListOf(DefaultUiResolver(this)))
 
-    private val mAdapter = CoinAdapter(this)
+    private val mAdapter = CoinAdapter(
+            {
+                view?.post {
+                    base_recycler_view.smoothScrollToPosition(it)
+                }
+            }
+    )
 
     override fun getViewModel(): CoinListViewModel = VIEW_MODEL_FACTORY.inject(this, CoinListViewModel::class.java)
 

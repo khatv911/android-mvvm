@@ -9,10 +9,9 @@ import android.support.v7.util.ListUpdateCallback
  * Profile : https://github.com/khatv911
  * Email   : khatv911@gmail.com
  */
-class ItemInsertedAwareCallback(private val adapterListUpdateCallback: AdapterListUpdateCallback,
-                                private val onItemInsertedCallback: OnItemInsertedCallback) : ListUpdateCallback {
+class ItemInsertedAwareCallback(private val adapterListUpdateCallback: AdapterListUpdateCallback) : ListUpdateCallback {
 
-    private var firstInsert = -1
+    var firstInsert = -1
 
     override fun onChanged(position: Int, count: Int, payload: Any?) {
         adapterListUpdateCallback.onChanged(position, count, payload)
@@ -23,13 +22,10 @@ class ItemInsertedAwareCallback(private val adapterListUpdateCallback: AdapterLi
     }
 
     override fun onInserted(position: Int, count: Int) {
-
-        adapterListUpdateCallback.onInserted(position, count)
-
         if (firstInsert == -1 || firstInsert > position) {
-            firstInsert = position;
-            onItemInsertedCallback.onItemInserted(firstInsert)
+            firstInsert = position
         }
+        adapterListUpdateCallback.onInserted(position, count)
     }
 
     override fun onRemoved(position: Int, count: Int) {
