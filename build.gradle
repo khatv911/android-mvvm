@@ -202,6 +202,10 @@ allprojects {
                 if (details.requested.group == 'com.squareup.moshi') {
                     details.useVersion '1.4.0'
                 }
+
+                if(details.requested.name == "kotlin-compiler-embeddable"){
+                    details.useVersion "1.2.31"
+                }
             }
         }
     }
