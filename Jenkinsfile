@@ -1,4 +1,5 @@
-node{
+pipeline{
+    agent any
     // Mark the code checkout stage
     stage 'Stage Checkout'
 
