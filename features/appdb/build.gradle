@@ -26,6 +26,20 @@ android {
                     files("$projectDir/schemas".toString())
         }
 
+        // proguard
+        proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                'proguard-rules.pro',
+                '../proguards/proguard-calligraphy-2.1.0.pro',
+                '../proguards/proguard-crashlytics-2.pro',
+                '../proguards/proguard-glide.pro',
+                '../proguards/proguard-google-play-services.pro',
+                '../proguards/proguard-rx-java.pro',
+                '../proguards/proguard-square-okio.pro',
+                '../proguards/proguard-square-okhttp3.pro',
+                '../proguards/proguard-square-retrofit2.pro',
+                '../proguards/proguard-dagger2.pro',
+                '../proguards/proguard-moshi.pro'
+
     }
 
     buildTypes {
@@ -53,6 +67,8 @@ dependencies {
     implementation deps.android.arch.paging.runtime
 
     implementation deps.moshi
+    kapt deps['moshi-kotlin-codegen']
+
     api deps.kotlin.stdlib.jdk
 
 

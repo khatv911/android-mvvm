@@ -1,9 +1,6 @@
 package com.kay.coin.model.entities
 
-import android.text.style.ForegroundColorSpan
 import com.squareup.moshi.Json
-import ru.gildor.coroutines.retrofit.Result
-import ru.gildor.coroutines.retrofit.getOrThrow
 
 /**
  * Created by Kay Tran on 16/3/18.

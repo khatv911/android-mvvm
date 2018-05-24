@@ -11,10 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.kay.appdb.coin.CoinItemViewModel
 import com.kay.coin.R
-import com.kay.core.utils.inflate
 import com.kay.core.ui.ItemInsertedAwareCallback
 import com.kay.core.ui.ListDiffer
-import com.kay.core.ui.OnItemInsertedCallback
+import com.kay.core.utils.inflate
 import kotlinx.android.synthetic.main.item_view_coin.view.*
 
 /**

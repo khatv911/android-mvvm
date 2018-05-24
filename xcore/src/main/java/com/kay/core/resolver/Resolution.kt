@@ -1,8 +1,6 @@
 package com.kay.core.resolver
 
-import kotlinx.coroutines.experimental.CoroutineExceptionHandler
 import retrofit2.HttpException
-import kotlin.coroutines.experimental.CoroutineContext
 
 /**
  * Created by Kay Tran on 2/2/18.

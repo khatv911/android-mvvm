@@ -1,6 +1,7 @@
 package com.kay.appdb.coin
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 
 /**
@@ -8,6 +9,7 @@ import com.squareup.moshi.Json
  * Profile : https://github.com/khatv911
  * Email   : khatv911@gmail.com
  */
+@JsonClass(generateAdapter = true)
 data class CoinMessage(
         @Json(name = "coin")
         var shortName: String?,

@@ -2,7 +2,6 @@ package com.kay.core.ui
 
 import android.support.v7.util.AdapterListUpdateCallback
 import android.support.v7.util.DiffUtil
-import android.support.v7.util.ListUpdateCallback
 import android.support.v7.widget.RecyclerView
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.channels.Channel

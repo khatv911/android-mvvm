@@ -76,14 +76,24 @@ dependencies {
     kapt deps.dagger.android.proccesor
 
 
+
+    implementation deps.moshi
+    kapt deps['moshi-kotlin-codegen']
+
     implementation deps.android.arch.lifecycle.extensions
     kapt deps.android.arch.lifecycle.compiler
 
 
+    implementation deps.android.support.selection
+
+    implementation deps.groupie
+    implementation deps['groupie.kotlin']
+
+
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
 
 }

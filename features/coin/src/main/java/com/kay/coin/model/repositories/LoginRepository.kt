@@ -1,12 +1,12 @@
 package com.kay.coin.model.repositories
 
 import android.content.SharedPreferences
-import com.kay.core.utils.PrefHelper.set
+import com.kay.coin.model.entities.FcsResponse
 import com.kay.core.utils.BaseRepository
+import com.kay.core.utils.PrefHelper.set
 import com.kay.core.utils.RequestState
 import com.kay.core.utils.withRetryExceptionHandler
 import com.squareup.moshi.Json
-import com.kay.coin.model.entities.FcsResponse
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import retrofit2.Call

@@ -3,31 +3,23 @@ package com.kay.coin.view
 import android.graphics.Rect
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.*
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.support.v7.widget.SearchView
 import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView
-import com.kay.appdb.coin.Coin
 import com.kay.appdb.coin.CoinItemViewModel
 import com.kay.coin.R
 import com.kay.core.resolver.DefaultResolution
 import com.kay.core.resolver.DefaultUiResolver
 import com.kay.core.simple.SimpleRecyclerViewFragment
-import com.kay.core.ui.OnItemInsertedCallback
-import com.kay.core.utils.ItemHandler
 import com.kay.core.utils.Retriable
 import com.kay.core.utils.inject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.fragment_master.*
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 

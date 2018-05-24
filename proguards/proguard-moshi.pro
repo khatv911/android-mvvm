@@ -8,3 +8,9 @@
 -keepclassmembers class kotlin.Metadata {
     public <methods>;
 }
+
+-keep class **JsonAdapter {
+    <init>(...);
+    <fields>;
+}
+-keepnames @com.squareup.moshi.JsonClass class *

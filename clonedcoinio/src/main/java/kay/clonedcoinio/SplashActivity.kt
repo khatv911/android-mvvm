@@ -13,7 +13,7 @@ import com.kay.coin.view.CoinActivity
 class SplashActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startActivity( Intent(this, CoinActivity::class.java))
+        startActivity( Intent(this, DemoActivity::class.java))
         finish()
     }
 

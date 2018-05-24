@@ -74,8 +74,8 @@ dependencies {
 
 
 
-//    implementation deps.moshi
-//    implementation deps['moshi.kotlin']
+    implementation deps.moshi
+    kapt deps['moshi-kotlin-codegen']
 
     implementation deps.okhttp.client
     api deps.retrofit.client

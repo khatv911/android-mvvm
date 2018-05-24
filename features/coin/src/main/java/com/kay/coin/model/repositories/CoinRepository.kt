@@ -1,14 +1,14 @@
 package com.kay.coin.model.repositories
 
+import com.kay.appdb.AppDatabase
+import com.kay.appdb.coin.Coin
+import com.kay.appdb.coin.CoinItemViewModel
 import com.kay.core.utils.*
 import com.squareup.moshi.Moshi
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 import io.socket.client.IO
-import com.kay.appdb.AppDatabase
-import com.kay.appdb.coin.Coin
-import com.kay.appdb.coin.CoinItemViewModel
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async

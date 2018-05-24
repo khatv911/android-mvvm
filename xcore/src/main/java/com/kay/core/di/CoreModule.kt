@@ -57,8 +57,6 @@ class CoreModule {
     @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder().build()
-                // since 1.5.0
-//                .add(KotlinJsonAdapterFactory()).build()
     }
 
     @Provides

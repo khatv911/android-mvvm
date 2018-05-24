@@ -3,6 +3,7 @@ package com.kay.appdb.coin
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 /**
  * Created by Kay Tran on 2/2/18.
@@ -10,6 +11,7 @@ import com.squareup.moshi.Json
  * Email: khatv911@gmail.com
  */
 @Entity(tableName = "tbl_coin")
+@JsonClass(generateAdapter = true)
 data class Coin(
         @PrimaryKey(autoGenerate = true)
         var id: Long=0L,
