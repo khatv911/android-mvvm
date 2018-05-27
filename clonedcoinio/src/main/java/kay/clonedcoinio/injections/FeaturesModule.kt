@@ -18,5 +18,4 @@ abstract class FeaturesModule {
     abstract fun application(app: App): Application
 
 
-
 }

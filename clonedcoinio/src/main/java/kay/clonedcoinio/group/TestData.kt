@@ -6,12 +6,12 @@ package kay.clonedcoinio.group
  * Profile : https://github.com/khatv911
  * Email   : khatv911@gmail.com
  */
-sealed class BaseData
+sealed class BaseData(open val id: String)
 
-data class JobData(var name: String, var id:String): BaseData()
+data class JobData(var name: String, override val id: String) : BaseData(id)
 
-data class RoomData(var name:String, var id: String, var jobs:List<JobData>): BaseData()
+data class RoomData(var name: String, override val id: String, var jobs: List<JobData>) : BaseData(id)
 
-data class GroupData(var name: String, var id: String, var rooms: List<RoomData>): BaseData()
+data class GroupData(var name: String, override var id: String, var rooms: List<RoomData>) : BaseData(id)
 
 

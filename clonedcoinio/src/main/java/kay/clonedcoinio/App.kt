@@ -36,6 +36,5 @@ class App : dagger.android.support.DaggerApplication() {
         Timber.plant(Timber.DebugTree())
 
 
-
     }
 }

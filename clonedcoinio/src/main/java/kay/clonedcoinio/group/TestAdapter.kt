@@ -1,9 +1,10 @@
 package kay.clonedcoinio.group
 
-import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.Section
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+import kay.clonedcoinio.R
+import kotlinx.android.synthetic.main.header_item_expandable.view.*
+import kotlinx.android.synthetic.main.view_item_text_1.view.*
 
 
 /**
@@ -12,25 +13,52 @@ import com.xwray.groupie.kotlinandroidextensions.ViewHolder
  * Email   : khatv911@gmail.com
  */
 class TestAdapter : GroupAdapter<ViewHolder>() {
-
     fun addData(data: List<GroupData>) {
-        val section = Section()
-        data.asSequence().forEach { groupData ->
-            val groupSection = Section(HeaderXItem(groupData.name)).apply {
-                groupData.rooms.asSequence().forEach { roomData ->
-                    val roomExpandable = ExpandableHeaderItem(roomData.name, roomData.jobs.count())
-                    val jobsByRoom = ExpandableGroup(roomExpandable).apply {
-                        roomData.jobs.asSequence().forEach { jobData ->
-                            this.add(TextItem(jobData.name, jobData.id))
+        add(xSection {
+            header {
+                title = "List Header"
+                subtitle = "Test"
+                icon = R.drawable.ic_expand_more
+            }
+            footer {
+                "List footer"
+            }
+            data.asSequence().forEach { groupData ->
+                section {
+                    header {
+                        title = groupData.name
+                    }
+                    footer {
+                         "${groupData.name} end"
+                    }
+                    groupData.rooms.asSequence().forEach { roomData ->
+                        //                        val roomExpandable = ExpandableHeaderItem(roomData.name, roomData.jobs.count())
+                        expandable {
+                            // expanded by default
+                            isExpanded { true }
+                            // header should look like this
+                            header {
+                                title = roomData.name
+                                subtitle = "%d".format(roomData.jobs.count())
+                            }
+                            roomData.jobs.asSequence().forEach { jobData ->
+
+                                item {
+                                    layoutId = R.layout.view_item_text_1
+                                    binder = { position ->
+                                        with(itemView) {
+                                            tv_item_name.text = jobData.name
+                                            editText.text = jobData.id
+                                        }
+                                    }
+                                }
+                            }
+
                         }
                     }
-                    this.add(jobsByRoom)
                 }
             }
-            add(groupSection)
         }
-
-
-        add(section)
+        )
     }
 }

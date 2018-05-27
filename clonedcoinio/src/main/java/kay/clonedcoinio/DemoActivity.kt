@@ -3,7 +3,6 @@ package kay.clonedcoinio
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import com.xwray.groupie.GroupAdapter
 import kay.clonedcoinio.group.DataProvider
 import kay.clonedcoinio.group.TestAdapter
 import kotlinx.android.synthetic.main.activity_demo.*
@@ -14,16 +13,16 @@ import kotlinx.android.synthetic.main.activity_demo.*
  * Profile : https://github.com/khatv911
  * Email   : khatv911@gmail.com
  */
-class DemoActivity: AppCompatActivity() {
+class DemoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_demo)
         val adapter = TestAdapter()
         adapter.addData(DataProvider.getData())
-
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         recyclerView.adapter = adapter
+
     }
+
 }
