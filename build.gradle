@@ -140,8 +140,8 @@ buildscript {
             'moshi': "com.squareup.moshi:moshi:${versions.moshi}",
             'moshi-kotlin-codegen':"com.squareup.moshi:moshi-kotlin-codegen:${versions.moshi}",
             // not recommended
-            'groupie'       : "com.xwray:groupie:2.0.3",
-            'groupie.kotlin': "com.xwray:groupie-kotlin-android-extensions:2.0.3",
+            'groupie'       : "com.xwray:groupie:2.1.0",
+            'groupie.kotlin': "com.xwray:groupie-kotlin-android-extensions:2.1.0",
             // use epoxy instead as it's battle tested.
 
             'stetho'        : "com.facebook.stetho:stetho:${versions.stetho}",

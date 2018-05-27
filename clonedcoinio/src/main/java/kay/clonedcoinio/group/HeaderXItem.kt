@@ -3,6 +3,7 @@ package kay.clonedcoinio.group
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kay.clonedcoinio.R
+import kay.clonedcoinio.group.x.XHeaderData
 import kay.clonedcoinio.selection.CustomItemDetails
 import kay.clonedcoinio.selection.ItemDetailsGetter
 import kotlinx.android.synthetic.main.section_x_header.view.*

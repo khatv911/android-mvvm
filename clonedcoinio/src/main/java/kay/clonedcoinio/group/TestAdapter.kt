@@ -3,7 +3,8 @@ package kay.clonedcoinio.group
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kay.clonedcoinio.R
-import kotlinx.android.synthetic.main.header_item_expandable.view.*
+import kay.clonedcoinio.group.x.section
+import kay.clonedcoinio.group.x.xSection
 import kotlinx.android.synthetic.main.view_item_text_1.view.*
 
 
@@ -13,8 +14,8 @@ import kotlinx.android.synthetic.main.view_item_text_1.view.*
  * Email   : khatv911@gmail.com
  */
 class TestAdapter : GroupAdapter<ViewHolder>() {
-    fun addData(data: List<GroupData>) {
-        add(xSection {
+    fun update(data: List<GroupData>) {
+        val mainSection = xSection {
             header {
                 title = "List Header"
                 subtitle = "Test"
@@ -29,7 +30,7 @@ class TestAdapter : GroupAdapter<ViewHolder>() {
                         title = groupData.name
                     }
                     footer {
-                         "${groupData.name} end"
+                        "${groupData.name} end"
                     }
                     groupData.rooms.asSequence().forEach { roomData ->
                         //                        val roomExpandable = ExpandableHeaderItem(roomData.name, roomData.jobs.count())
@@ -59,6 +60,6 @@ class TestAdapter : GroupAdapter<ViewHolder>() {
                 }
             }
         }
-        )
+        update(arrayListOf(mainSection))
     }
 }

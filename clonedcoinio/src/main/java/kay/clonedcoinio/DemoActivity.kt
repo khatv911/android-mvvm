@@ -19,7 +19,7 @@ class DemoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_demo)
         val adapter = TestAdapter()
-        adapter.addData(DataProvider.getData())
+        adapter.update(DataProvider.getData())
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
